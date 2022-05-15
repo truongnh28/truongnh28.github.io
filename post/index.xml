@@ -12,30 +12,208 @@
         <pubDate>Sat, 14 May 2022 00:00:00 +0000</pubDate>
         
         <guid>https://truongnh28.github.io/p/system-design-project/</guid>
-        <description>&lt;img src="https://truongnh28.github.io/p/system-design-project/system_design.png" alt="Featured image of post System Design Project" /&gt;&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;
-&lt;p&gt;Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.&lt;/p&gt;
+        <description>&lt;img src="https://truongnh28.github.io/p/system-design-project/system_design.png" alt="Featured image of post System Design Project" /&gt;&lt;h2 id=&#34;đề-bài-thiết-kế-một-hệ-thống-web-blog-với-khả-năng-chịu-tải-10000-request-trên-giây&#34;&gt;Đề bài: Thiết kế một hệ thống web blog với khả năng chịu tải 10000 request trên giây.&lt;/h2&gt;
+&lt;h2 id=&#34;bài-làm&#34;&gt;Bài làm&lt;/h2&gt;
+&lt;h3 id=&#34;phát-thảo-các-trường-hợp-sử-dụng-và-các-ràng-buộc&#34;&gt;Phát thảo các trường hợp sử dụng và các ràng buộc&lt;/h3&gt;
+&lt;h4 id=&#34;trường-hợp-sử-dụng&#34;&gt;Trường hợp sử dụng&lt;/h4&gt;
+&lt;p&gt;Ta sẽ giải quyết các trường hợp sau:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Người dùng thực hiện yêu cầu đọc hoặc ghi
+&lt;ul&gt;
+&lt;li&gt;Dịch vụ xử lý, lưu trữ dữ liệu người dùng sau đó trả kết quả.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Dịch vụ cần phát triển từ việc phục vụ một lượng nhỏ người dùng lên hàng triệu người dùng
+&lt;ul&gt;
+&lt;li&gt;Thảo luận về các mô hình chia tỷ lệ chung khi chúng tôi phát triển một kiến ​​trúc để xử lý một số lượng lớn người dùng và yêu cầu&lt;/li&gt;
+&lt;li&gt;Dịch vụ có tính khả dụng cao&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;hạn-chế-và-giả-định&#34;&gt;Hạn chế và giả định&lt;/h4&gt;
 &lt;ol&gt;
-&lt;li&gt;Exierant elisi ambit vivere dedere&lt;/li&gt;
-&lt;li&gt;Duce pollice&lt;/li&gt;
-&lt;li&gt;Eris modo&lt;/li&gt;
-&lt;li&gt;Spargitque ferrea quos palude&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Giả định trạng thái&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lưu lượng truy cập phân bố không đồng đều.&lt;/li&gt;
+&lt;li&gt;Cần cơ sở dữ liệu quan hệ.&lt;/li&gt;
+&lt;li&gt;Quy mô từ 1 đến hàng triệu người dùng.&lt;/li&gt;
+&lt;li&gt;Biểu thị sự gia tăng của người dùng là:
+&lt;ul&gt;
+&lt;li&gt;Người dùng +&lt;/li&gt;
+&lt;li&gt;Người dùng ++&lt;/li&gt;
+&lt;li&gt;Người dùng +++&lt;/li&gt;
+&lt;li&gt;&amp;hellip;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;1 triệu người dùng.&lt;/li&gt;
+&lt;li&gt;1 triệu lượt viết mỗi tháng.&lt;/li&gt;
+&lt;li&gt;500 triệu lượt đọc mỗi tháng&lt;/li&gt;
+&lt;li&gt;Tỷ lệ đọc ghi là: 500 : 1&lt;/li&gt;
+&lt;li&gt;Dung lượng khoảng 500kb&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Tính toán mức sử dụng&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;476 GB nội dung mỗi tháng.
+&lt;ul&gt;
+&lt;li&gt;500 KB * 1000000 lần ghi mỗi tháng.&lt;/li&gt;
+&lt;li&gt;Giả sử hầu hết các bài viết là nội dung mới thay vì cập nhật những nội dung đã có.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Trung bình 10 giây thì có 4 lần viết.&lt;/li&gt;
+&lt;li&gt;Trung bình 1 giây thì có 200 lần đọc.&lt;/li&gt;
+&lt;li&gt;10000 request mỗi giây -&amp;gt; 25000000000 request mỗi tháng.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.&lt;/p&gt;
+&lt;h3 id=&#34;thiết-kế-ở-mức-cao-hơn&#34;&gt;Thiết kế ở mức cao hơn&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/system-design-project/basic_architechture.png&#34;
+	width=&#34;401&#34;
+	height=&#34;281&#34;
+	srcset=&#34;https://truongnh28.github.io/p/system-design-project/basic_architechture_hu32418e4422083833936aa38319430550_14227_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/system-design-project/basic_architechture_hu32418e4422083833936aa38319430550_14227_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Bản thiết kế với số lượng người dùng nhỏ&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;142&#34;
+		data-flex-basis=&#34;342px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;thiết-kế-các-thanh-phần-cốt-lõi&#34;&gt;Thiết kế các thanh phần cốt lõi&lt;/h3&gt;
+&lt;p&gt;Người dùng yêu cầu đọc hoặc ghi.&lt;/p&gt;
+&lt;p&gt;Với số lượng người dùng nhỏ:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chỉ cần một Web Server duy nhất.&lt;/li&gt;
+&lt;li&gt;Có thể dùng vertical scaling khi cần thiết.&lt;/li&gt;
+&lt;li&gt;Giám sát để xử lý hệ thống nếu xảy ra hiện tượng tắt nghẽn.&lt;/li&gt;
+&lt;/ul&gt;
 &lt;ol&gt;
-&lt;li&gt;Comas hunc haec pietate fetum procerum dixit&lt;/li&gt;
-&lt;li&gt;Post torum vates letum Tiresia&lt;/li&gt;
-&lt;li&gt;Flumen querellas&lt;/li&gt;
-&lt;li&gt;Arcanaque montibus omnes&lt;/li&gt;
-&lt;li&gt;Quidem et&lt;/li&gt;
+&lt;li&gt;Một Web Server duy nhất:
+&lt;ul&gt;
+&lt;li&gt;Lưu trữ dữ liệu của người dùng.&lt;/li&gt;
+&lt;li&gt;Xử lý các yêu cầu.&lt;/li&gt;
+&lt;li&gt;Lưu trữ database MySQL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Sử dụng vertical scaling:
+&lt;ul&gt;
+&lt;li&gt;Đơn giản chỉ cần chọn một hộp lớn hơn&lt;/li&gt;
+&lt;li&gt;Theo dõi các chỉ số để xác định cách mở rộng quy mô&lt;/li&gt;
+&lt;li&gt;Sử dụng giám sát cơ bản để xác định tắc nghẽn: CPU, bộ nhớ, IO, mạng, v.v.&lt;/li&gt;
+&lt;li&gt;Mở rộng quy mô theo chiều dọc có thể rất tốn kém.&lt;/li&gt;
+&lt;li&gt;Không có backup.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Cơ sở dữ liệu MySQL:
+&lt;ul&gt;
+&lt;li&gt;Các ràng buộc cần có cơ sở dữ liệu quan hệ.&lt;/li&gt;
+&lt;li&gt;Dùng MySQL chung trên Web Server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;DNS
+&lt;ul&gt;
+&lt;li&gt;Gán IP của Web Server với một tên miền.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Bảo mật Web Server
+&lt;ul&gt;
+&lt;li&gt;Chỉ mở các cổng cần thiết
+&lt;ul&gt;
+&lt;li&gt;Cho phép máy chủ web phản hồi các yêu cầu đến từ:
+&lt;ul&gt;
+&lt;li&gt;80 cho HTTP&lt;/li&gt;
+&lt;li&gt;443 cho HTTPS&lt;/li&gt;
+&lt;li&gt;22 cho SSH đến chỉ các IP có trong danh sách cho phép.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Ngăn Web Server có các kết nối ra.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&#34;vagus-elidunt&#34;&gt;Vagus elidunt&lt;/h1&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;The Van de Graaf Canon&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;mane-refeci-capiebant-unda-mulcebat&#34;&gt;Mane refeci capiebant unda mulcebat&lt;/h2&gt;
-&lt;p&gt;Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. &lt;strong&gt;Faces illo pepulere&lt;/strong&gt; tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.&lt;/p&gt;
-&lt;p&gt;Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.&lt;/p&gt;
-&lt;p&gt;Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel &lt;strong&gt;mitis temploque&lt;/strong&gt; vocatus, inque alis, &lt;em&gt;oculos nomen&lt;/em&gt; non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides &lt;strong&gt;parte&lt;/strong&gt;.&lt;/p&gt;</description>
+&lt;h3 id=&#34;mở-rộng-thiết-kế&#34;&gt;Mở rộng thiết kế&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/system-design-project/system_design_scaling.png&#34;
+	width=&#34;741&#34;
+	height=&#34;1031&#34;
+	srcset=&#34;https://truongnh28.github.io/p/system-design-project/system_design_scaling_hue2b05cf877de4897207e0bd7efca5372_108138_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/system-design-project/system_design_scaling_hue2b05cf877de4897207e0bd7efca5372_108138_1024x0_resize_box_3.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Bản thiết kế với số lượng người dùng lớn&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;71&#34;
+		data-flex-basis=&#34;172px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Mở rộng Web Server theo horizontal scaling.
+&lt;ul&gt;
+&lt;li&gt;Sử dụng nhiều Web Server&lt;/li&gt;
+&lt;li&gt;Thêm các Load Balancer như HAProxy.&lt;/li&gt;
+&lt;li&gt;Mở rộng SQL theo dạng phân tán.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Ta sử dụng CDN
+&lt;ul&gt;
+&lt;li&gt;Sử dụng Object Store để quản lý nội dung tĩnh
+&lt;ul&gt;
+&lt;li&gt;Khả năng mở rộng cao và đáng tin cậy&lt;/li&gt;
+&lt;li&gt;Mã hóa phía máy chủ&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Di chuyển các nội dung tĩnh vào đây:
+&lt;ul&gt;
+&lt;li&gt;User file&lt;/li&gt;
+&lt;li&gt;JS&lt;/li&gt;
+&lt;li&gt;CSS&lt;/li&gt;
+&lt;li&gt;Hình ảnh&lt;/li&gt;
+&lt;li&gt;Video&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Thêm một Memory Caching (Redis)
+&lt;ul&gt;
+&lt;li&gt;Data được truy cập thường xuyên từ database.&lt;/li&gt;
+&lt;li&gt;Data session từ Web Server.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Mở rộng Database
+&lt;ul&gt;
+&lt;li&gt;Chỉ lưu trữ dữ liệu trong một khoảng thời gian giới hạn trong cơ sở dữ liệu, trong khi lưu trữ phần còn lại trong một kho dữ liệu chẳng hạn như Redshift
+&lt;ul&gt;
+&lt;li&gt;Một kho dữ liệu như Redshift có thể thoải mái xử lý giới hạn 1 TB nội dung mới mỗi tháng&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Với 200 yêu cầu đọc trung bình mỗi giây, lưu lượng đọc cho nội dung phổ biến có thể được giải quyết bằng cách mở rộng Bộ nhớ cache , điều này cũng hữu ích để xử lý lưu lượng truy cập được phân bổ không đồng đều và lưu lượng truy cập tăng đột biến&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Bảo mật hệ thống
+&lt;ul&gt;
+&lt;li&gt;Mã hóa dữ liệu khi chuyển tiếp và ở trạng thái nghỉ&lt;/li&gt;
+&lt;li&gt;Sử dụng VPC(Virtual Private Cloud)
+&lt;ul&gt;
+&lt;li&gt;Tạo một mạng con công cộng cho Web Server duy nhất để nó có thể gửi và nhận lưu lượng truy cập từ internet&lt;/li&gt;
+&lt;li&gt;Tạo một mạng con riêng cho mọi thứ khác, ngăn chặn sự truy cập từ bên ngoài&lt;/li&gt;
+&lt;li&gt;Chỉ mở các cổng từ các IP có trong danh sách cho phép cho phép&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;kết-luận&#34;&gt;Kết luận&lt;/h2&gt;
+&lt;p&gt;Trên đây chỉ là hiểu biết của mình thông qua việc tìm hiểu module System Design, bản thân mình cũng hi vọng nhận được sự những chia sẻ cũng như thảo luận từ phía các bạn để hoàn thiện hơn. Xin cảm ơn.&lt;/p&gt;
+&lt;h2 id=&#34;tham-khảo&#34;&gt;Tham khảo&lt;/h2&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/donnemartin/system-design-primer&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;system-design-primer&lt;/a&gt;
+&lt;/p&gt;
+</description>
         </item>
         
     </channel>
