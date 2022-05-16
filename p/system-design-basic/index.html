@@ -444,81 +444,117 @@ Những lợi ích của LB:</p>
 <p>Để làm được điều này, hệ thống sẽ cung cấp một vùng nhớ đệm (cache) để chứa những dữ liệu được request nhiều lần mà không thường xuyên thay đổi vào đó, từ đó hệ thống sẽ lấy dữ liệu từ bộ nhớ cache mà không truy cập vào bộ nhớ chính. Điều này giúp bộ nhớ chính sẽ được giảm tải đi từ đó năng lực của nó tăng lên.</p>
 <p>Bộ nhớ cache được sử dụng rất rộng rãi trong mọi thành phần của hệ thống như trong phần cứng (hardware) như RAM/CPU Cache, hệ điều hành (operating systems), trình duyệt web (web browsers), web applications v.v… Bộ nhớ cache giống như một bộ nhớ ngắn hạn (short- term memory) nó có giới hạn về kích cỡ, nhưng thường nhanh hơn rất nhiều lần bộ nhớ chính</p>
 <p>Về kiến trúc phần mềm thì Cache có thể tồn tại ở hầu hết các thành phần, nhưng chủ yếu nó tồn tại ở phần thao tác với dữ liệu như Database Layer, giúp trả về dữ liệu nhanh hơn mà không cần tốn chi phí để truy cập vào Database, hay ở phần Front-end để Cache những resource tĩnh như js, css, image file bằng cách dùng CDN.</p>
-<p>Bộ đệm tầng Backend(Application Server Cache):
-Ở tầng backend Cache được áp dụng như một bản sao hoặc một phần của DB/Storage, mỗi lần ứng dụng request dữ liệu từ DB/Storage nó sẽ tìm trong bộ nhớ Cache, nếu có ứng sẽ trả về dữ liệu tức thì mà không tốn tài nguyên để query xuống DB/Storage. Tuy nhiên nó chỉ có tác dụng với những dữ liệu được truy cập nhiều lần nhưng ít được thay đổi, ví dụ thông tin cá nhân của người dùng (tên, quê quán/quốc tịch, ngày tháng năm sinh, địa chỉ, số điện thoại…).
+<h3 id="bộ-đệm-tầng-backendapplication-server-cache">Bộ đệm tầng Backend(Application Server Cache)</h3>
+<p>Ở tầng backend Cache được áp dụng như một bản sao hoặc một phần của DB/Storage, mỗi lần ứng dụng request dữ liệu từ DB/Storage nó sẽ tìm trong bộ nhớ Cache, nếu có ứng sẽ trả về dữ liệu tức thì mà không tốn tài nguyên để query xuống DB/Storage. Tuy nhiên nó chỉ có tác dụng với những dữ liệu được truy cập nhiều lần nhưng ít được thay đổi, ví dụ thông tin cá nhân của người dùng (tên, quê quán/quốc tịch, ngày tháng năm sinh, địa chỉ, số điện thoại…).
 Nếu ta có nhu cầu gia tăng khả năng chịu tải bộ nhớ Cache theo mô hình horizontal scaling, khi đó ta sẽ có thêm nhiều node và mỗi node sẽ chứa các dữ liệu của riêng nó. Tuy nhiên điều này sẽ dẫn đến số lượng “cache miss” tăng cao vì LB sẽ tùy chọn ngẫu nhiên 1 node mỗi request từ đó một request sẽ tới nhiều “cache node” khác nhau. Và để giải quyết điều này ta có hai sự lựa chọn là sử dụng duy nhất một nhớ Cache lớn, hoặc phân chia dữ liệu cache trên cụm server với Consistent Hashing</p>
-<p>Bộ đệm tầng Frontend — Content Distribution Network (CDN)
-CDN được sử dụng để caching những resource tĩnh trên các website như js, css, images… (static media) mạng lưới CDN sẽ được đặt ở nhiều vùng địa lý khác nhau và dựa theo địa chỉ của từng request mà các static media sẽ được trả về từ trên các máy chủ CDN ở gần nó nhất, nếu không có trên tất cả các máy chủ CDN thì nó sẽ lấy dữ liệu đó từ Back-end Server để trả về và đồng thời cached dữ liệu vừa lấy lên CDN. Nhờ vậy ta có thể tăng tốc khả năng chịu tải cũng như tốc độ của website.
-Nếu hệ thống của bạn không đủ lớn để xây dựng một CDN riêng của mình thì bạn cũng có thể sử dụng các dịch vụ CDN sẵn có như như ‎Cloudflare, ‎BootstrapCDN hay ‎Amazon CloudFront v.v…</p>
-<p>Cache Invalidation
-Về bản chất Cache là một bản sao của bộ nhớ chính có thể là DB hay các dạng Storage khác, ví dụ dữ liệu từ DB được update, thì cache phải được update theo (invalidated cache).Cho nên việc đồng bộ dữ liệu giữa bộ nhớ chính và Cache để giải quyết tính consistency của hệ thống là một vấn đề phải giải quyết.</p>
+<h3 id="bộ-đệm-tầng-frontend--content-distribution-network-cdn">Bộ đệm tầng Frontend — Content Distribution Network (CDN)</h3>
+<p>CDN được sử dụng để caching những resource tĩnh trên các website như js, css, images… (static media) mạng lưới CDN sẽ được đặt ở nhiều vùng địa lý khác nhau và dựa theo địa chỉ của từng request mà các static media sẽ được trả về từ trên các máy chủ CDN ở gần nó nhất, nếu không có trên tất cả các máy chủ CDN thì nó sẽ lấy dữ liệu đó từ Back-end Server để trả về và đồng thời cached dữ liệu vừa lấy lên CDN. Nhờ vậy ta có thể tăng tốc khả năng chịu tải cũng như tốc độ của website.
+Nếu hệ thống của bạn không đủ lớn để xây dựng một CDN riêng của mình thì bạn cũng có thể sử dụng các dịch vụ CDN sẵn có như như Cloudflare, BootstrapCDN hay Amazon CloudFront v.v…</p>
+<h3 id="cache-invalidation">Cache Invalidation</h3>
+<p>Về bản chất Cache là một bản sao của bộ nhớ chính có thể là DB hay các dạng Storage khác, ví dụ dữ liệu từ DB được update, thì cache phải được update theo (invalidated cache).Cho nên việc đồng bộ dữ liệu giữa bộ nhớ chính và Cache để giải quyết tính consistency của hệ thống là một vấn đề phải giải quyết.</p>
 <p>Ta có 3 chiến thuật để giải quyết vấn đề về cache invalidation là:</p>
-<p>Write-through cache
-Là chiến thuật khi có dữ liệu cần thay đổi, hệ thống sẽ ghi dữ liệu cả và Cache hoặc DB đồng thời. Việc này sẽ đảm bảo được việc dữ liệu sẽ luôn luôn consistency bởi vì process sẽ không thành công và phải thực hiện lại nếu một trong hai thao tác ghi vào Cache hoặc ghi vào DB bị lỗi. Tuy nhiên điểm yếu của chiến thuật này là độ trễ cao trong việc ghi dữ liệu, vì đòi hỏi cả hai thao tác ghi từ DB và Cache phải được hoàn thành.
-Write-around cache
-Chiến thuật này khi có dữ liệu cần thay đổi, sẽ chỉ ghi vào DB mà bỏ qua Cache. Điều này sẽ có thể giảm việc Cache bị tràn ngập các thao tác ghi mà rất có thể các dữ liệu này sẽ không bao giờ được sử dụng. Tuy nhiên việc này sẽ gây ra trường hợp “cache miss” nếu client gửi một request được từ một bản ghi mới được ghi vào, nó sẽ gây độ trễ khi đọc vì lúc này dữ liệu phải đọc từ DB sau đó mới được ghi ngược lại vào Cache và trả về cho Client. Và chiến thuật này chỉ phù hợp với những dữ liệu ít thay đổi và hệ thống chấp nhận độ trễ của dữ liệu, vì dữ liệu có thể không consistency trong lúc Cache chưa hết hạn (expired) mà có dữ liệu mới đã được update.
-Write-back cache
-Là khi có dữ liệu cần thay đổi, sẽ chỉ ghi vào bộ nhớ Cache mà bỏ qua DB, dữ liệu chỉ ghi vào DB sau một khoảng thời gian (interval) hoặc với điều kiện nào đó. Điều này sẽ có lợi ích tạo ra cho hệ thống độ trễ thấp (low latency) và lưu lượng cao (high throughput) với những hệ thống chuyên ghi (write-intensive). Tuy nhiên chiến thuật này có độ rủi ro cao về mất mát dữ liệu, bởi vì trước khi dữ liệu được ghi vào DB thì dữ liệu của chúng ta chỉ nằm ở trong Cache, bất kỳ một sự cố nào về Cache đều có thể gây mất mát dữ liệu.
-Cache eviction policies
-Ngoài ra ta cũng có các cách chiến thuật xóa dữ liệu không còn cần thiết từ Cache.</p>
 <ol>
-<li>
-<p>First In First Out (FIFO): Cách dữ liệu được ghi vào Cache trước thì sẽ được ưu tiên xóa đi trước mà không quan tâm tới tần suất hay số lượng truy cập của nó.</p>
-</li>
-<li>
-<p>Last In First Out (LIFO): Sẽ ưu tiên xóa những dữ liệu được ghi cũ nhất mà không quan tâm tới tần suất hay số lượng truy cập của nó.</p>
-</li>
-<li>
-<p>Least Recently Used (LRU): Sẽ xóa những dữ liệu ít được truy cập gần đây trước tiên.</p>
-</li>
-<li>
-<p>Most Recently Used (MRU): Sẽ xóa những dữ liệu được truy cập thường xuyên gần đây nhất.</p>
-</li>
-<li>
-<p>Least Frequently Used (LFU): Sẽ xóa những dữ liệu ít được truy cập nhất.</p>
-</li>
-<li>
-<p>RR: Sẽ trọn ra một dữ liệu bất kỳ trên Cache để thực hiện thao tác xóa.</p>
-</li>
+<li>Write-through cache
+Là chiến thuật khi có dữ liệu cần thay đổi, hệ thống sẽ ghi dữ liệu cả và Cache hoặc DB đồng thời. Việc này sẽ đảm bảo được việc dữ liệu sẽ luôn luôn consistency bởi vì process sẽ không thành công và phải thực hiện lại nếu một trong hai thao tác ghi vào Cache hoặc ghi vào DB bị lỗi. Tuy nhiên điểm yếu của chiến thuật này là độ trễ cao trong việc ghi dữ liệu, vì đòi hỏi cả hai thao tác ghi từ DB và Cache phải được hoàn thành.</li>
+<li>Write-around cache
+Chiến thuật này khi có dữ liệu cần thay đổi, sẽ chỉ ghi vào DB mà bỏ qua Cache. Điều này sẽ có thể giảm việc Cache bị tràn ngập các thao tác ghi mà rất có thể các dữ liệu này sẽ không bao giờ được sử dụng. Tuy nhiên việc này sẽ gây ra trường hợp “cache miss” nếu client gửi một request được từ một bản ghi mới được ghi vào, nó sẽ gây độ trễ khi đọc vì lúc này dữ liệu phải đọc từ DB sau đó mới được ghi ngược lại vào Cache và trả về cho Client. Và chiến thuật này chỉ phù hợp với những dữ liệu ít thay đổi và hệ thống chấp nhận độ trễ của dữ liệu, vì dữ liệu có thể không consistency trong lúc Cache chưa hết hạn (expired) mà có dữ liệu mới đã được update.</li>
+<li>Write-back cache
+Là khi có dữ liệu cần thay đổi, sẽ chỉ ghi vào bộ nhớ Cache mà bỏ qua DB, dữ liệu chỉ ghi vào DB sau một khoảng thời gian (interval) hoặc với điều kiện nào đó. Điều này sẽ có lợi ích tạo ra cho hệ thống độ trễ thấp (low latency) và lưu lượng cao (high throughput) với những hệ thống chuyên ghi (write-intensive). Tuy nhiên chiến thuật này có độ rủi ro cao về mất mát dữ liệu, bởi vì trước khi dữ liệu được ghi vào DB thì dữ liệu của chúng ta chỉ nằm ở trong Cache, bất kỳ một sự cố nào về Cache đều có thể gây mất mát dữ liệu.</li>
+</ol>
+<h3 id="cache-eviction-policies">Cache eviction policies</h3>
+<p>Ngoài ra ta cũng có các cách chiến thuật xóa dữ liệu không còn cần thiết từ Cache.</p>
+<ol>
+<li>First In First Out (FIFO): Cách dữ liệu được ghi vào Cache trước thì sẽ được ưu tiên xóa đi trước mà không quan tâm tới tần suất hay số lượng truy cập của nó.</li>
+<li>Last In First Out (LIFO): Sẽ ưu tiên xóa những dữ liệu được ghi cũ nhất mà không quan tâm tới tần suất hay số lượng truy cập của nó.</li>
+<li>Least Recently Used (LRU): Sẽ xóa những dữ liệu ít được truy cập gần đây trước tiên.</li>
+<li>Most Recently Used (MRU): Sẽ xóa những dữ liệu được truy cập thường xuyên gần đây nhất.</li>
+<li>Least Frequently Used (LFU): Sẽ xóa những dữ liệu ít được truy cập nhất.</li>
+<li>RR: Sẽ trọn ra một dữ liệu bất kỳ trên Cache để thực hiện thao tác xóa.</li>
 </ol>
 <p>Thông thường thì hệ thống sẽ đánh dấu thời điểm hết hạn (expire time) của dữ liệu, nếu quá thời hạn thì Cache sẽ bị xóa đi. Tính toán expire time của Cache cũng là một bài toán khá đau đầu tùy vào logic của hệ thống đang phát triển.</p>
 <h2 id="phần-4-phân-chia-dữ-liệu--shardingdata-partitioning">Phần 4: Phân chia dữ liệu — Sharding/Data Partitioning</h2>
-<p>Phân chia dữ liệu (Sharding) là một giải pháp chia nhỏ một Database lớn thành nhiều Database nhỏ, ta có thể phân tách từng bảng hoặc cả một DB ra nhiều phần nhỏ đặt ở nhiều máy chủ (server) khác nhau. Điều này sẽ giúp cho hệ thống DB của chúng ta đạt được các tính chất khả năng bảo trì (manageability), hiệu xuất (performance), tính sẵn sàng (availability), và cân bằng tải (load balancing) của ứng dụng. Và giải pháp này cũng giảm chi phí cũng như tính mở rộng (scalability) để scale up DB bằng cách dùng nhiều server nhỏ gộp lại hơn là nâng cấp một server lớn.</p>
-<p>Những cách thức phân chia dữ liệu
-Ta có 3 cách thức Sharding dữ liệu như sau:</p>
-<p>Horizontal sharding
+<p>Phân chia dữ liệu (Sharding) là một giải pháp chia nhỏ một Database lớn thành nhiều Database nhỏ, ta có thể phân tách từng bảng hoặc cả một DB ra nhiều phần nhỏ đặt ở nhiều máy chủ (server) khác nhau. Điều này sẽ giúp cho hệ thống DB của chúng ta đạt được các tính chất khả năng bảo trì (manageability), hiệu xuất (performance), tính sẵn sàng (availability), và cân bằng tải (load balancing) của ứng dụng. Và giải pháp này cũng giảm chi phí cũng như tính mở rộng (scalability) để scale up DB bằng cách dùng nhiều server nhỏ gộp lại hơn là nâng cấp một server lớn.
+<img src="/p/system-design-basic/ds1.png"
+	width="401"
+	height="188"
+	srcset="/p/system-design-basic/ds1_hu609feb72800955956481269af14dd6c4_10013_480x0_resize_box_3.png 480w, /p/system-design-basic/ds1_hu609feb72800955956481269af14dd6c4_10013_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="mô hình"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="511px"
+	
+></p>
+<h3 id="những-cách-thức-phân-chia-dữ-liệu">Những cách thức phân chia dữ liệu</h3>
+<p>Ta có 3 cách thức Sharding dữ liệu như sau:</p>
+<ol>
+<li>Horizontal sharding
 Là cách chia cùng dữ liệu của cùng một bảng (table) ra nhiều DB khác nhau. Ví dụ ta có bảng dữ liệu thông tin về người dùng, ta sẽ dựa trên location của người dùng để quyết định nó nằm ở DB nào, ví dụ người dùng ở Sài Gòn thì sẽ chứ ở DB_SG, thông tin người dùng ở Biên Hòa sẽ nằm ở DB_BH hay thông tin người dùng ở Vĩnh Long sẽ nằm ở DB_VL.
-Giải pháp này có một vấn đề là ta phải chọn nơi dữ liệu Sharding rất cẩn thận để không gây mất cân bằng (unbalanced) giữa các DB dẫn tới rất có thể có một vài Server sẽ thành điểm nóng (hot spot), ví dụ người dùng ở Sài Gòn chắc chắn là đông hơn rất nhiều lần người dùng ở Biên Hòa hay Vĩnh Long.
-Vertical sharing
+Giải pháp này có một vấn đề là ta phải chọn nơi dữ liệu Sharding rất cẩn thận để không gây mất cân bằng (unbalanced) giữa các DB dẫn tới rất có thể có một vài Server sẽ thành điểm nóng (hot spot), ví dụ người dùng ở Sài Gòn chắc chắn là đông hơn rất nhiều lần người dùng ở Biên Hòa hay Vĩnh Long.</li>
+<li>Vertical sharing
 Là cách sharding dữ liệu dựa trên tính năng (feature) của hệ thống. Ví dụ ta thiết kế một hệ thống chia sẻ ảnh giống Instagram, ta sẽ lưu thông tin của User vào DB_Users, lưu thông tin ảnh họ up lên trên một DB khác là DB_Photos và thông tin danh sách những người họ follow ở một DB thứ 3 là DB_Follow.
-Cách làm này rất là rõ ràng dễ để implement và không làm ảnh hưởng lớn đến ứng dụng, nhưng khi hệ thống lớn dần lên thì dữ liệu cũng lớn dần theo, do đó ta lại phải thực hiện sharding tiếp những DB trên từng feature (bởi vì 1 DB không thể sử lý 10 tỷ bức ảnh của 140 triệu user được).
-Directory Based sharding
-Cách này sẽ yêu cầu ta phải thiết kế một “lookup service” có tác dụng quyết định ánh xạ (mapping) dữ liệu sẽ nằm ở đâu, DB nào. Mỗi khi có request ghi hoặc đọc sẽ thông qua lookup service để mapping vị trí sẽ đọc và ghi. Khi business mở rộng số lượng server có thể tăng lên mà không ảnh hưởng hay đòi hỏi ứng dụng phải thay đổi theo.</p>
-<p>Những tiêu chí để phân vùng dữ liệu
-Bên trên ta đã tìm hiểu và các method để sharding dữ liệu, giờ ta hãy tìm kiểu sâu hơn về các tiêu chí để phân vùng dữ liệu.</p>
-<p>Phân vùng theo key hoặc hash
-Hệ thống sẽ áp dụng các hàm băm (hash function) cho một hoặc nhiều các key chính trong dữ liệu (thường là ID) để xác định ra một con số của phân vùng nó đang nằm. Ví dụ: nếu hệ thống có 100 máy chủ DB và ID của bản ghi sẽ tự tăng lên mỗi lần một bản ghi mới được chèn. Trong ví dụ này, hàm băm có thể là ‘ID% 100, từ đó ta có thể xác định vị trí của dữ liệu. Cách tiếp cận này cần đảm bảo phân bổ dữ liệu thống nhất giữa các máy chủ. Nhưng cách làm này có một điểm yếu là mỗi khi ta thay đổi số lượng Server tăng hoặc giảm thì hàm băm cũng sẽ phải thay đổi theo và sẽ xuất hiện hiện tượng xáo trộn tập dữ liệu trên mỗi server, và đòi hỏi ta phải phân phối lại dữ liệu và xuất hiện độ trễ dữ liệu. Có một cách giải quyết vấn đề này là sử dụng Consistent Hashing (hàm băm nhất quán).
-Phân vùng theo danh sách (list)
+Cách làm này rất là rõ ràng dễ để implement và không làm ảnh hưởng lớn đến ứng dụng, nhưng khi hệ thống lớn dần lên thì dữ liệu cũng lớn dần theo, do đó ta lại phải thực hiện sharding tiếp những DB trên từng feature (bởi vì 1 DB không thể sử lý 10 tỷ bức ảnh của 140 triệu user được).</li>
+<li>Directory Based sharding
+Cách này sẽ yêu cầu ta phải thiết kế một “lookup service” có tác dụng quyết định ánh xạ (mapping) dữ liệu sẽ nằm ở đâu, DB nào. Mỗi khi có request ghi hoặc đọc sẽ thông qua lookup service để mapping vị trí sẽ đọc và ghi. Khi business mở rộng số lượng server có thể tăng lên mà không ảnh hưởng hay đòi hỏi ứng dụng phải thay đổi theo.</li>
+</ol>
+<p><img src="/p/system-design-basic/ds2.png"
+	width="1400"
+	height="1180"
+	srcset="/p/system-design-basic/ds2_hu5c3fc298dadb06c6ff8452e525425c94_123932_480x0_resize_box_3.png 480w, /p/system-design-basic/ds2_hu5c3fc298dadb06c6ff8452e525425c94_123932_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="ví dụ"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="118"
+		data-flex-basis="284px"
+	
+></p>
+<h3 id="những-tiêu-chí-để-phân-vùng-dữ-liệu">Những tiêu chí để phân vùng dữ liệu</h3>
+<p>Bên trên ta đã tìm hiểu và các method để sharding dữ liệu, giờ ta hãy tìm kiểu sâu hơn về các tiêu chí để phân vùng dữ liệu.</p>
+<ol>
+<li>Phân vùng theo key hoặc hash
+Hệ thống sẽ áp dụng các hàm băm (hash function) cho một hoặc nhiều các key chính trong dữ liệu (thường là ID) để xác định ra một con số của phân vùng nó đang nằm. Ví dụ: nếu hệ thống có 100 máy chủ DB và ID của bản ghi sẽ tự tăng lên mỗi lần một bản ghi mới được chèn. Trong ví dụ này, hàm băm có thể là ‘ID% 100, từ đó ta có thể xác định vị trí của dữ liệu. Cách tiếp cận này cần đảm bảo phân bổ dữ liệu thống nhất giữa các máy chủ. Nhưng cách làm này có một điểm yếu là mỗi khi ta thay đổi số lượng Server tăng hoặc giảm thì hàm băm cũng sẽ phải thay đổi theo và sẽ xuất hiện hiện tượng xáo trộn tập dữ liệu trên mỗi server, và đòi hỏi ta phải phân phối lại dữ liệu và xuất hiện độ trễ dữ liệu. Có một cách giải quyết vấn đề này là sử dụng Consistent Hashing (hàm băm nhất quán).</li>
+<li>Phân vùng theo danh sách (list)
 Cách phân vùng sẽ được quyết định gán một danh sách các giá trị ngay từ đầu, từ đó mỗi lần ghi một bản ghi mới ta sẽ tìm ra giá trị của bản ghi nằm ở phân vùng nào và ghi vào đó. Ví dụ ta sẽ quyết định nhóm tất cả các người dùng ở Ai-len, Na Uy, Thụy Điển, Phần Lan và Đan Mạch và một phân vùng có tên là Nordic (Bắc Âu).
 Phân vùng vòng tròn (round-robin)
-Cách phân vùng này rất đơn giản là mỗi lần có thao tác ghi ta sẽ ghi vòng tròn quanh các phân vùng có sẵn. Cách làm này đơn giản nhưng rất khó để xác định dữ liệu nào ở đâu lấy ra khi cần.
-Phân vùng tổng hợp
-Là cách tổng hợp các giải pháp trên thành một giải pháp mới. Ví dụ ta có thể áp dụng phân vùng theo Key/Hash và sau đó xác định được key rồi ta sẽ áp dụng tiếp phân vùng theo danh sách để chứa key sau khi hash vào một danh sách cụ thể nào đó. Consistent Hashing có thể được coi là cách phân vùng tổng hợp.
-Các vấn đề khi Sharding dữ liệu
-Vì việc dữ liệu sẽ bị phân tán đi nhiều Server khác nhau do vậy sẽ phát sinh một vài vấn đề khi sharding dữ liệu như sau:</p>
-<p>Joins and De-normalization
-Bởi vì việc dữ liệu ở các bảng được phân bố và trải rộng đi nhiều DB/Server khác nhau nên việc join bảng dữ liệu là điều rất khó khăn và cũng không đem lại hiệu xuất bởi vì việc dữ liệu phải được queries từ nhiều máy chủ khác nhau. Để giải quyết vấn đề này ta có thể thiết kế dữ liệu dạng non-relationship DB hay còn gọi là NoSQL, giống như MongoDB hay Cassandra hai hệ NoSQL rất nổi tiếng và hỗ trợ Sharding vô cùng tốt. Tuy nhiên việc này ta phải chấp nhận rủi ro việc không nhất quán dữ liệu (inconsistency)
-Referential integrity
-Cũng vì lý do trên về việc truy vấn chéo dữ liệu giữa các DB nằm trên các máy chủ khác nhau là bất khả thi, do vậy việc ràng buộc khóa ngoại để bảo đảm sự toàn vẹn dữ liệu cũng là một điều vô cùng khó khăn. Hầu hết RDBMS không hỗ trợ các ràng buộc khóa ngoại trên các cơ sở dữ liệu phân tán trền nhiều server. Do vậy để đạt được điều này ta phải thực hiện điều này trên mã ứng dụng (code), điều này sẽ tăng tính phức tạp của ứng dụng.
-Rebalancing
-Trong suốt quá trình hệ thống vận hành có rất nhiều lý do ta thay đổi các chiến thuật hay cách thức Sharding dữ liệu, như business tăng trưởng yêu cầu thêm Server… Và mỗi khi như vậy ta phải tái cân bằng (rebalancing) dữ liệu trên tất cả các Server, có nghĩa là dữ liệu phải được phân phối lại trên toàn bộ server. Để làm được điều này mà không có độ trễ (downtime) là cực kỳ khó khăn. Mô hình sharding “Directory Based” có khả năng rebalancing tốt nhất nhưng lại tăng độ phức tạp của ứng dụng và tạo thêm một single point of failure (ví dụ “lookup service”).
-Tóm lại với Sharding thì mô hình sharding với key/hash với Consistent Hashing hiện tại là giải pháp tối ưu nhất cho việc Rebalancing.</p>
+Cách phân vùng này rất đơn giản là mỗi lần có thao tác ghi ta sẽ ghi vòng tròn quanh các phân vùng có sẵn. Cách làm này đơn giản nhưng rất khó để xác định dữ liệu nào ở đâu lấy ra khi cần.</li>
+<li>Phân vùng tổng hợp
+Là cách tổng hợp các giải pháp trên thành một giải pháp mới. Ví dụ ta có thể áp dụng phân vùng theo Key/Hash và sau đó xác định được key rồi ta sẽ áp dụng tiếp phân vùng theo danh sách để chứa key sau khi hash vào một danh sách cụ thể nào đó. Consistent Hashing có thể được coi là cách phân vùng tổng hợp.</li>
+</ol>
+<h3 id="các-vấn-đề-khi-sharding-dữ-liệu">Các vấn đề khi Sharding dữ liệu</h3>
+<p>Vì việc dữ liệu sẽ bị phân tán đi nhiều Server khác nhau do vậy sẽ phát sinh một vài vấn đề khi sharding dữ liệu như sau:</p>
+<ol>
+<li>Joins and De-normalization
+Bởi vì việc dữ liệu ở các bảng được phân bố và trải rộng đi nhiều DB/Server khác nhau nên việc join bảng dữ liệu là điều rất khó khăn và cũng không đem lại hiệu xuất bởi vì việc dữ liệu phải được queries từ nhiều máy chủ khác nhau. Để giải quyết vấn đề này ta có thể thiết kế dữ liệu dạng non-relationship DB hay còn gọi là NoSQL, giống như MongoDB hay Cassandra hai hệ NoSQL rất nổi tiếng và hỗ trợ Sharding vô cùng tốt. Tuy nhiên việc này ta phải chấp nhận rủi ro việc không nhất quán dữ liệu (inconsistency)</li>
+<li>Referential integrity
+Cũng vì lý do trên về việc truy vấn chéo dữ liệu giữa các DB nằm trên các máy chủ khác nhau là bất khả thi, do vậy việc ràng buộc khóa ngoại để bảo đảm sự toàn vẹn dữ liệu cũng là một điều vô cùng khó khăn. Hầu hết RDBMS không hỗ trợ các ràng buộc khóa ngoại trên các cơ sở dữ liệu phân tán trền nhiều server. Do vậy để đạt được điều này ta phải thực hiện điều này trên mã ứng dụng (code), điều này sẽ tăng tính phức tạp của ứng dụng.</li>
+<li>Rebalancing
+Trong suốt quá trình hệ thống vận hành có rất nhiều lý do ta thay đổi các chiến thuật hay cách thức Sharding dữ liệu, như business tăng trưởng yêu cầu thêm Server… Và mỗi khi như vậy ta phải tái cân bằng (rebalancing) dữ liệu trên tất cả các Server, có nghĩa là dữ liệu phải được phân phối lại trên toàn bộ server. Để làm được điều này mà không có độ trễ (downtime) là cực kỳ khó khăn. Mô hình sharding “Directory Based” có khả năng rebalancing tốt nhất nhưng lại tăng độ phức tạp của ứng dụng và tạo thêm một single point of failure (ví dụ “lookup service”).</li>
+</ol>
+<p>Tóm lại với Sharding thì mô hình sharding với key/hash với Consistent Hashing hiện tại là giải pháp tối ưu nhất cho việc Rebalancing.</p>
 <h2 id="phần-5-indexes">Phần 5: Indexes</h2>
 <p>Có lẽ thuật ngữ “đánh index” đã quá quen với những ai làm việc với CSDL, đó là cách rất phổ biến để tăng tốc độ query của dữ liệu, khi dữ liệu Database ngày càng tăng và trở nên chậm dần đều theo thời gian. Mục tiêu của việc tạo Index là để tăng tốc độ trả về dữ liệu của một hoặc nhiều trường (rows) trên một bảng (table) cụ thể nào đó bằng cách tạo Index trên một hoặc nhiều cột (columns) của một database table.</p>
 <p>Để hiểu rõ hơn thế nào là Indexes ta hãy đến thử một nhà sách hay thư viện, thường các cuốn sách sẽ được phân chia theo các danh mục về nội dung như: sách nấu ăn, sách tiểu thuyết nước ngoài, sách tâm lý, sách lịch sử … Nếu ta muốn tìm kiếm một loại sách theo nội dung mong muốn thì chỉ việc tới cá kệ sách với nội dung tương ứng, nó sẽ nhanh hơn là tìm kiếm từ toàn bộ cả nhà sách từ. Hoặc ví dụ khác về các phần mục lục trong muốn cuốn sách, nếu ta muốn tìm nhanh đến “chương hồi” ta đang cần tìm kiếm hoặc đọc dở chỉ cần tra mục lục rồi tìm tới đúng trang chứa nội dung.</p>
 <p>Index trong Database cũng giống như vậy, ví dụ ta có một table là Books chứa 4 columns là “book_title”, “writer”, “subject”, và “date_of_publication”, thường thì khách hàng sẽ thường xuyên tìm kiếm sách theo hai tiêu chí là tên sách và tác giả, do đó ta sẽ tạo Index cho hai column là “book_title” và “writer”. Database sẽ tạo ra một data structure riêng biệt chứa hai giá trị của toàn bộ nội dung (content) các cột đánh index và một con trỏ (pointer) để trỏ tới dữ liệu thật sự đang nằm ở Database. Như vậy, sử dụng index yêu cầu cần disk space để chứa cấu trúc của nó và Index cũng không làm thay đổi cấu trúc của table. Do vậy mỗi làm tìm kiếm dữ liệu thì Database sẽ tìm kiếm ở Index sau đó dựa vào con trỏ của Index để trả về dữ liệu thật.</p>
 <p>Nhưng tại sao tìm kiếm trên Index lại nhanh hơn tìm kiếm trên Database, bởi vì Index luôn luôn sắp xếp dữ liệu để tối ưu nhất cho các thuật toán thực hiện việc tìm kiếm, còn dữ liệu Database thật thì luôn sắp xếp lộn xộn không có thứ tự nên không thuận tiện cho việc tìm kiếm. Mỗi Database sẽ có cách sắp xếp Index và thuật toán tìm kiếm Index khác nhau.</p>
-<p>Tuy nhiên Index cũng không phải là một magic keyword, việc đánh Index cần thật cẩn trọng,</p>
+<p><img src="/p/system-design-basic/idx.jpeg"
+	width="1050"
+	height="646"
+	srcset="/p/system-design-basic/idx_hud3f00abfefc6b4d3b0f8f144ed2ee5e3_88293_480x0_resize_q75_box.jpeg 480w, /p/system-design-basic/idx_hud3f00abfefc6b4d3b0f8f144ed2ee5e3_88293_1024x0_resize_q75_box.jpeg 1024w"
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="162"
+		data-flex-basis="390px"
+	
+>
+Tuy nhiên Index cũng không phải là một magic keyword, việc đánh Index cần thật cẩn trọng</p>
 <ul>
 <li>Thứ 1: Việc tạo Index sẽ tốn disk space, do đó chỉ nên đánh những cột dữ liệu có dung lượng nhỏ, và sẽ không có ý nghĩa gì nếu đánh Index cột contents kiểu CLOB chứa nội dung của một article vì lúc đó dữ liệu của Index sẽ to bằng nguyên cái table gốc.</li>
 <li>Thứ 2: Index thì ta cũng phải cần tạo ra nó, với một dữ liệu lớn sẵn rồi mà lúc này ta mới đánh Index thì việc tạo ra nó là một công việc rất tốn thời gian và tài nguyên hệ thống. Cho nên tốt nhất hãy lường trước ta tạo Index ngay từ khi dữ liệu còn nhỏ.</li>
@@ -911,8 +947,21 @@ SSEs cũng giống WebSocket là thích hợp với các ứng dụng thời gia
       </ol>
     </li>
     <li><a href="#phần-2-cân-bằng-tải-load-balancing">Phần 2: Cân bằng tải (Load balancing)</a></li>
-    <li><a href="#phần-3-bộ-đệm--caching">Phần 3: Bộ đệm — Caching</a></li>
-    <li><a href="#phần-4-phân-chia-dữ-liệu--shardingdata-partitioning">Phần 4: Phân chia dữ liệu — Sharding/Data Partitioning</a></li>
+    <li><a href="#phần-3-bộ-đệm--caching">Phần 3: Bộ đệm — Caching</a>
+      <ol>
+        <li><a href="#bộ-đệm-tầng-backendapplication-server-cache">Bộ đệm tầng Backend(Application Server Cache)</a></li>
+        <li><a href="#bộ-đệm-tầng-frontend--content-distribution-network-cdn">Bộ đệm tầng Frontend — Content Distribution Network (CDN)</a></li>
+        <li><a href="#cache-invalidation">Cache Invalidation</a></li>
+        <li><a href="#cache-eviction-policies">Cache eviction policies</a></li>
+      </ol>
+    </li>
+    <li><a href="#phần-4-phân-chia-dữ-liệu--shardingdata-partitioning">Phần 4: Phân chia dữ liệu — Sharding/Data Partitioning</a>
+      <ol>
+        <li><a href="#những-cách-thức-phân-chia-dữ-liệu">Những cách thức phân chia dữ liệu</a></li>
+        <li><a href="#những-tiêu-chí-để-phân-vùng-dữ-liệu">Những tiêu chí để phân vùng dữ liệu</a></li>
+        <li><a href="#các-vấn-đề-khi-sharding-dữ-liệu">Các vấn đề khi Sharding dữ liệu</a></li>
+      </ol>
+    </li>
     <li><a href="#phần-5-indexes">Phần 5: Indexes</a></li>
     <li><a href="#phần-6-proxies">Phần 6: Proxies</a></li>
     <li><a href="#phần-7-sao-lưu-và-đồng-bộ-dữ-liệu--redundancy-and-replication">Phần 7: Sao lưu và đồng bộ dữ liệu — Redundancy and Replication</a></li>
