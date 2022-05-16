@@ -406,7 +406,6 @@ SSEs cũng giống WebSocket là thích hợp với các ứng dụng thời gia
 &lt;/li&gt;
 &lt;li&gt;Dịch vụ cần phát triển từ việc phục vụ một lượng nhỏ người dùng lên hàng triệu người dùng
 &lt;ul&gt;
-&lt;li&gt;Thảo luận về các mô hình chia tỷ lệ chung khi chúng tôi phát triển một kiến ​​trúc để xử lý một số lượng lớn người dùng và yêu cầu&lt;/li&gt;
 &lt;li&gt;Dịch vụ có tính khả dụng cao&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
