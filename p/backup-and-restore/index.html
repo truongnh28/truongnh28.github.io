@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Phục hồi database tại một thời điểm chưa sao lưu'><title>Backup and Restore</title>
+
+<link rel='canonical' href='https://truongnh28.github.io/p/backup-and-restore/'>
+
+<link rel="stylesheet" href="/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css"><meta property='og:title' content='Backup and Restore'>
+<meta property='og:description' content='Phục hồi database tại một thời điểm chưa sao lưu'>
+<meta property='og:url' content='https://truongnh28.github.io/p/backup-and-restore/'>
+<meta property='og:site_name' content='Nguyễn Hữu Trưởng'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='backup-restore' /><meta property='article:published_time' content='2022-05-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-19T00:00:00&#43;00:00'/><meta property='og:image' content='https://truongnh28.github.io/p/backup-and-restore/backup-restore-mssql-database.jpg' />
+<meta name="twitter:title" content="Backup and Restore">
+<meta name="twitter:description" content="Phục hồi database tại một thời điểm chưa sao lưu"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://truongnh28.github.io/p/backup-and-restore/backup-restore-mssql-database.jpg' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu98d34193ef26d6536e438e405a9d9bf0_34688_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Nguyễn Hữu Trưởng</a></h1>
+            <h2 class="site-description">BE</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://www.facebook.com/truongjr'
+                        target="_blank"
+                        title="Facebook"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <desc>Download more icon variants from https://tabler-icons.io/i/brand-facebook</desc>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/truongnh28'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/backup-and-restore/">
+                <img src="/p/backup-and-restore/backup-restore-mssql-database_huedd795790a66a116bf38eeeb4dcb7687_88649_800x0_resize_q75_box.jpg"
+                        srcset="/p/backup-and-restore/backup-restore-mssql-database_huedd795790a66a116bf38eeeb4dcb7687_88649_800x0_resize_q75_box.jpg 800w, /p/backup-and-restore/backup-restore-mssql-database_huedd795790a66a116bf38eeeb4dcb7687_88649_1600x0_resize_q75_box.jpg 1600w"
+                        width="800" 
+                        height="419" 
+                        loading="lazy"
+                        alt="Featured image of post Backup and Restore" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/database/" >
+                Database
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/backup-and-restore/">Backup and Restore</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Phục hồi database tại một thời điểm chưa sao lưu
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 19, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="lấy-lại-dữ-liệu-sau-khi-xóa">Lấy Lại Dữ Liệu Sau Khi Xóa</h2>
+<h3 id="giới-thiệu">Giới thiệu</h3>
+<p>Bạn đã bao giờ nhỡ tay xóa mất một bảng (DROP TABLE) hoặc xóa sạch dữ liệu trong bảng (DELETE) của một database đang hoạt động rất nhộn nhịp, để rồi giật mình nhận ra mình vừa phạm một lỗi tày đình? Mồ hôi vã ra đầm đìa, nghe chuông điện thoại kêu mà giật mình thon thót, đầu óc quay cuồng nghĩ cách ăn nói thế nào cho phải. Những hoàn cảnh tương tự như vậy không phải hiếm. Đối với các DBA thường xuyên phải làm việc trực tiếp trên dữ liệu, những sự cố xảy ra do nhầm lẫn là không tránh khỏi. Rất may SQL Server đã tính đến tình huống này, và cung cấp các phương tiện cần thiết để lấy lại dữ liệu, với điều kiện database phải có những thiết lập đúng đắn từ trước.
+Tuy nhiên bạn có thể thấy là vấn đề đã trở nên phức tạp hơn, câu lệnh không thể ROLLBACK lại được nữa vì SQL Server để chế độ mặc định là AUTO COMMIT. Khôi phục lại từ bản backup từ ngày hôm trước cũng không giải quyết được, vì như thế dữ liệu vừa mới được cập nhật trong ngày cũng sẽ mất tiêu luôn. Vấn đề đặt ra là cần lấy lại dữ liệu giống như thời điểm ngay trước khi chạy lệnh DELETE, chứ không phải từ ngày hôm qua. Một gợi ý cho bạn: log file luôn lưu lại tất cả các hành động diễn ra đối với database, bao gồm cả lệnh DELETE vừa xong. Đây là dấu vết duy nhất và cách làm của ta cũng là dựa vào đó để lần ngược lại.</p>
+<h3 id="điều-kiện-để-có-thể-phục-hồi">Điều kiện để có thể phục hồi</h3>
+<p>Để có thể khôi phục lại được đòi hỏi ba điều kiện sau:</p>
+<ul>
+<li>database có chế độ RECOVERY MODE là FULL</li>
+<li>database đã từng được FULL BACKUP và bạn có trong tay file backup gần nhất</li>
+<li>log file chưa từng bị SHRINK kể từ sau lần full backup gần nhất.
+Nếu một trong ba điều kiện trên bị vi phạm thì vấn đề kể như hết cách giải cứu.
+Giả sử cả ba điều kiện trên được thỏa mãn và lần full backup gần đây nhất là đêm hôm trước. Bạn có thể khôi phục thông qua các bước sau (xem thêm script ở phần dưới):
+<ol>
+<li>Đóng lại tất cả các kết nối đến database để không tiếp nhận thêm dữ liệu</li>
+<li>Ghi lại thời điểm xảy ra lệnh DELETE lỗi</li>
+<li>Thực hiện BACKUP LOG cho database</li>
+<li>Khôi phục lại database theo trình tự sau:
+<ul>
+<li>RESTORE từ bản full backup đêm hôm trước</li>
+<li>RESTORE từ bản log backup với lựa chọn STOPAT = thời điểm ngay trước khi có sự cố</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<p>Và khi mọi việc đã hoàn tất, chuyển lại database sang chế độ hoạt động bình thường để các ứng dụng lại có thể kết nối vào database.</p>
+<p><strong>Script</strong>
+Tạo database và bảng:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">IF</span><span class="w"> </span><span class="n">DB_ID</span><span class="p">(</span><span class="s1">&#39;TestDB&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">USE</span><span class="w"> </span><span class="n">TestDB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Table1</span><span class="p">(</span><span class="n">ID</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">IDENTITY</span><span class="p">,</span><span class="w"> </span><span class="n">Ten</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Table1</span><span class="p">(</span><span class="n">Ten</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nguyen Van A&#39;</span><span class="w"> </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nguyen Van B&#39;</span><span class="w"> </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nguyen Van C&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Thực hiện full backup:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">BACKUP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;D:\Backup\TestDB.bak&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">INIT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Thêm</span><span class="w"> </span><span class="n">dữ</span><span class="w"> </span><span class="n">liệu</span><span class="w"> </span><span class="n">mới</span><span class="w"> </span><span class="n">sau</span><span class="w"> </span><span class="n">khi</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="n">backup</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Table1</span><span class="p">(</span><span class="n">Ten</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nguyen Van D&#39;</span><span class="w"> </span><span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="s1">&#39;Nguyen Van E&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ba đoạn lệnh trên mô phỏng tình huống thực tế một database đã có chứa dữ liệu, được backup full lúc nửa đêm hôm trước, và trong ngày đã có thêm dữ liệu mới. Tại một thời điểm nào đó trong ngày bạn xóa mất dữ liệu do sơ suất:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Table1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sau khi xảy ra sự cố, việc tiếp theo đầu tiên bạn cần làm là đóng lại database, để không ai có thể tiếp tục cập nhật dữ liệu đến khi database được khôi phục xong. Bạn làm việc này bằng cách chuyển database về trạng thái SINGLE_USER (một người dùng). Vì bạn đang kết nối vào database, không ai khác có thể kết nối được nữa:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">SINGLE_USER</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">IMMEDIATE</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sau đó ghi lại thời điểm xảy ra sự cố:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">GETDATE</span><span class="p">()</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Khi đang chạy script cho bài viết này, thời điểm hiện tại của tôi là ’2010-12-07 17:51:03.990′.
+Việc tiếp theo là backup log:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">BACKUP</span><span class="w"> </span><span class="n">LOG</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;D:\backup\TestDB.trn&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">INIT</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sau đó khôi phục lại database theo thứ tự bản full backup trước rồi đến bản log backup:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">USE</span><span class="w"> </span><span class="n">master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">go</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">RESTORE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;D:\backup\TestDB.bak&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">NORECOVERY</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">RESTORE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">DISK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;D:\backup\TestDB.trn&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="n">STOPAT</span><span class="o">=</span><span class="s1">&#39;2010-12-07 17:50:00&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Điểm mấu chốt trong đoạn lệnh trên là mệnh đề STOPAT ở lệnh RESTORE thứ hai. Mục đích của nó là khôi phục lại database từ log backup nhưng dừng lại tại thời điểm được chỉ định. Khi các hành động xảy ra đối với database được lưu vào log file, nó cũng kèm theo thời điểm xảy ra hành động đó. Khi backup log file thì bản backup cũng chứa y nguyên các thông tin này. Vì thế khi restore từ log file với mệnh đề STOPAT, bạn đã yêu cầu hệ thống “tua” lại các hành động đã được áp dụng đối với database, nhưng dừng lại trước thời điểm có sự cố. Do đó lệnh DELETE trên không được thực hiện lại và bảng đã trở về trạng thái như cũ.
+Hãy để ý ở mệnh đề STOPAT, tôi đã đẩy lùi thời gian lại một chút để đảm bảo thời điểm đó là trước khi xảy ra xóa dữ liệu. Khi chạy thử nghiệm bạn cần lưu ý điều này và chọn thời điểm cho thích hợp.
+Và dữ liệu đã được khôi phục:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">USE</span><span class="w"> </span><span class="n">TestDB</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">GO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">Table1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">ID</span><span class="w">          </span><span class="n">Ten</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">----------- ------------------------------
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="mi">1</span><span class="w">           </span><span class="n">Nguyen</span><span class="w"> </span><span class="n">Van</span><span class="w"> </span><span class="n">A</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">2</span><span class="w">           </span><span class="n">Nguyen</span><span class="w"> </span><span class="n">Van</span><span class="w"> </span><span class="n">B</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">3</span><span class="w">           </span><span class="n">Nguyen</span><span class="w"> </span><span class="n">Van</span><span class="w"> </span><span class="k">C</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">4</span><span class="w">           </span><span class="n">Nguyen</span><span class="w"> </span><span class="n">Van</span><span class="w"> </span><span class="n">D</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">5</span><span class="w">           </span><span class="n">Nguyen</span><span class="w"> </span><span class="n">Van</span><span class="w"> </span><span class="n">E</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="mi">5</span><span class="w"> </span><span class="k">ROW</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">affected</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Bước cuối cùng là chuyển lại database sang chế độ bình thường</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">ALTER</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="n">TestDB</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">MULTI_USER</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Vậy là vấn đề đã được giải quyết (sau khoảng nửa tiếng đến 1 tiếng gián đoạn sử dụng). Bây giờ là một câu hỏi giành cho bạn: Trong ví dụ trên tôi giả sử database chỉ có một backup duy nhất vào nửa đêm, và đó là full backup. Nếu ngoài ra database còn có các log backup định kỳ trong ngày (ví dụ mỗi tiếng 1 lần), thì việc khôi phục cần được thực hiện như thế nào?</p>
+<p>Các bước thực hiện:</p>
+<ul>
+<li>Thực hiện Restore Full backup từ lúc nửa đêm</li>
+<li>Sau đó thực hiện restore các backup định kỳ theo đúng thứ tự</li>
+<li>Bước cuối cùng là RESTORE với tùy chọn STOPAT như trong bài đã hướng dẫn
+Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log ở trong ví dụ trên cần bỏ lựa chọn &ldquo;WITH INIT&rdquo; hoặc cần backup vào một file riêng (khác với file dùng trong các backup định kỳ)</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/backup-restore/">backup-restore</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Nguyễn Hữu Trưởng
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#lấy-lại-dữ-liệu-sau-khi-xóa">Lấy Lại Dữ Liệu Sau Khi Xóa</a>
+      <ol>
+        <li><a href="#giới-thiệu">Giới thiệu</a></li>
+        <li><a href="#điều-kiện-để-có-thể-phục-hồi">Điều kiện để có thể phục hồi</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
