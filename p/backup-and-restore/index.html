@@ -369,6 +369,7 @@ Giả sử cả ba điều kiện trên được thỏa mãn và lần full back
 </li>
 </ul>
 <p>Và khi mọi việc đã hoàn tất, chuyển lại database sang chế độ hoạt động bình thường để các ứng dụng lại có thể kết nối vào database.</p>
+<h2 id="thực-hiện">Thực hiện</h2>
 <p><strong>Script</strong>
 Tạo database và bảng:</p>
 <div class="highlight"><div class="chroma">
@@ -528,6 +529,10 @@ Và dữ liệu đã được khôi phục:</p>
 <li>Bước cuối cùng là RESTORE với tùy chọn STOPAT như trong bài đã hướng dẫn
 Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log ở trong ví dụ trên cần bỏ lựa chọn &ldquo;WITH INIT&rdquo; hoặc cần backup vào một file riêng (khác với file dùng trong các backup định kỳ)</li>
 </ul>
+<h2 id="tham-khảo">Tham khảo</h2>
+<p>Thầy Lưu Nguyễn Kỳ Thư</p>
+<p>Đây là đồ án mà tôi đã thực hiện để demo vấn đề này. <a class="link" href="https://github.com/truongnh28/TTCS_backup_restore"  target="_blank" rel="noopener"
+    >backup-restore</a></p>
 <!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 <blockquote>
@@ -725,6 +730,8 @@ Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log 
         <li><a href="#điều-kiện-để-có-thể-phục-hồi">Điều kiện để có thể phục hồi</a></li>
       </ol>
     </li>
+    <li><a href="#thực-hiện">Thực hiện</a></li>
+    <li><a href="#tham-khảo">Tham khảo</a></li>
   </ol>
 </nav>
         </div>

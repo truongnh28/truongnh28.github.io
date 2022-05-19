@@ -38,6 +38,7 @@ Giả sử cả ba điều kiện trên được thỏa mãn và lần full back
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Và khi mọi việc đã hoàn tất, chuyển lại database sang chế độ hoạt động bình thường để các ứng dụng lại có thể kết nối vào database.&lt;/p&gt;
+&lt;h2 id=&#34;thực-hiện&#34;&gt;Thực hiện&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Script&lt;/strong&gt;
 Tạo database và bảng:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -197,6 +198,10 @@ Và dữ liệu đã được khôi phục:&lt;/p&gt;
 &lt;li&gt;Bước cuối cùng là RESTORE với tùy chọn STOPAT như trong bài đã hướng dẫn
 Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log ở trong ví dụ trên cần bỏ lựa chọn &amp;ldquo;WITH INIT&amp;rdquo; hoặc cần backup vào một file riêng (khác với file dùng trong các backup định kỳ)&lt;/li&gt;
 &lt;/ul&gt;
+&lt;h2 id=&#34;tham-khảo&#34;&gt;Tham khảo&lt;/h2&gt;
+&lt;p&gt;Thầy Lưu Nguyễn Kỳ Thư&lt;/p&gt;
+&lt;p&gt;Đây là đồ án mà tôi đã thực hiện để demo vấn đề này. &lt;a class=&#34;link&#34; href=&#34;https://github.com/truongnh28/TTCS_backup_restore&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;backup-restore&lt;/a&gt;&lt;/p&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;!-- raw HTML omitted --&gt;
 &lt;blockquote&gt;
