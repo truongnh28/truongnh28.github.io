@@ -223,7 +223,7 @@ Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log 
 &lt;li&gt;Các phương thức của lớp.&lt;/li&gt;
 &lt;li&gt;Các quan hệ giữa các đối tượng.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;class-là-cái-vẹo-gì&#34;&gt;Class là cái vẹo gì?&lt;/h3&gt;
+&lt;h2 id=&#34;class-là-cái-vẹo-gì&#34;&gt;Class là cái vẹo gì?&lt;/h2&gt;
 &lt;p&gt;Class là một bản thiết kế cho một đối tượng. Các đối tượng và class luôn đi đôi với nhau. Chúng ta không thể nói cái này mà không có cái kia. Và toàn bộ điểm của thiết kế hướng đối tượng không phải nói đến các đối tượng mà nó nói đến class bởi vì chúng ta sử dụng class để tạo ra các đối tượng. Nên một class sẽ mô tả một đối tượng nó như thế nào nhưng bản thân của class không phải là một đối tượng.&lt;/p&gt;
 &lt;p&gt;Trong thực tế, các class mô tả các kiểu của đối tượng, trong khi các đối tượng là thể hiện của các class. Mỗi đối tượng được xây dựng từ các bản thiết kế do đó nó chứa các phương thức và thuộc tính giống nhau. Ý nghĩa tiêu chuẩn là một đối tượng là một thể hiện của một lớp và các đối tượng có trạng thái và hành vi.&lt;/p&gt;
 &lt;p&gt;Ví dụ:&lt;/p&gt;
@@ -300,9 +300,9 @@ Vâng đúng là như vậy. Một điều nữa là khi đó lệnh backup log 
 &lt;/ul&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Hiển thị Lớp học
-Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong một lớp biểu thị khả năng hiển thị của thuộc tính và hoạt động.
-&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p4.png&#34;
+&lt;p&gt;Class Visibility&lt;/p&gt;
+&lt;p&gt;Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong một lớp biểu thị khả năng hiển thị của thuộc tính và hoạt động.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p4.png&#34;
 	width=&#34;482&#34;
 	height=&#34;253&#34;
 	srcset=&#34;https://truongnh28.github.io/p/class-diagram-uml/p4_hu06816d78b83e80e4236a3930fc5d23e0_40625_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/class-diagram-uml/p4_hu06816d78b83e80e4236a3930fc5d23e0_40625_1024x0_resize_box_3.png 1024w&#34;
@@ -323,7 +323,7 @@ Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong 
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Tham số hướng&lt;/p&gt;
+&lt;p&gt;Parameter Directionality&lt;/p&gt;
 &lt;p&gt;Mỗi tham số trong một hoạt động (phương thức) có thể được ký hiệu là in, out hoặc inout, chỉ định hướng của nó đối với người gọi. Hướng này được hiển thị trước tên tham số.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p5.png&#34;
 	width=&#34;632&#34;
@@ -341,16 +341,16 @@ Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong 
 &gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;phối-cảnh-của-sơ-đồ-lớp&#34;&gt;Phối cảnh của Sơ đồ lớp&lt;/h2&gt;
-&lt;p&gt;Việc lựa chọn quan điểm phụ thuộc vào việc bạn đã đi được bao xa trong quá trình phát triển. Ví dụ, trong quá trình xây dựng mô hình miền, bạn sẽ hiếm khi vượt qua quan điểm khái niệm. Các mô hình phân tích thường sẽ có sự kết hợp giữa quan điểm khái niệm và đặc điểm kỹ thuật. Việc phát triển mô hình thiết kế thường sẽ bắt đầu với sự nhấn mạnh nhiều vào quan điểm đặc tả, và phát triển thành quan điểm thực hiện.&lt;/p&gt;
+&lt;h2 id=&#34;perspectives-of-class-diagram&#34;&gt;Perspectives of Class Diagram&lt;/h2&gt;
+&lt;p&gt;Việc lựa chọn quan điểm phụ thuộc vào việc bạn đã đi được bao xa trong quá trình phát triển. Ví dụ, trong quá trình xây dựng &lt;strong&gt;domain model&lt;/strong&gt;, bạn sẽ hiếm khi vượt qua &lt;strong&gt;conceptual perspective&lt;/strong&gt;. &lt;strong&gt;Analysis models&lt;/strong&gt; thường sẽ có sự kết hợp giữa &lt;strong&gt;conceptual and specification perspectives&lt;/strong&gt;. Việc phát triển &lt;strong&gt;Design model&lt;/strong&gt; thường sẽ bắt đầu với sự nhấn mạnh nhiều vào &lt;strong&gt;specification perspective&lt;/strong&gt;, và phát triển thành &lt;strong&gt;implementation perspective&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;Một sơ đồ có thể được giải thích từ nhiều khía cạnh khác nhau:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Khái niệm: đại diện cho các khái niệm trong miền&lt;/li&gt;
-&lt;li&gt;Đặc điểm kỹ thuật: tập trung vào các giao diện của Kiểu dữ liệu trừu tượng (ADT) trong phần mềm&lt;/li&gt;
-&lt;li&gt;Triển khai: mô tả cách các lớp sẽ triển khai các giao diện của chúng&lt;/li&gt;
+&lt;li&gt;Conceptual(Khái niệm): đại diện cho các khái niệm trong miền&lt;/li&gt;
+&lt;li&gt;Specification(Đặc điểm kỹ thuật): tập trung vào các giao diện của Kiểu dữ liệu trừu tượng (ADT) trong phần mềm&lt;/li&gt;
+&lt;li&gt;Implementation(Triển khai): mô tả cách các lớp sẽ triển khai các giao diện của chúng&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Quan điểm ảnh hưởng đến số lượng chi tiết được cung cấp và các loại mối quan hệ đáng trình bày. Như chúng tôi đã đề cập ở trên, tên lớp là thông tin bắt buộc duy nhất.
-&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p6.png&#34;
+&lt;p&gt;Quan điểm ảnh hưởng đến số lượng chi tiết được cung cấp và các loại mối quan hệ đáng trình bày. Như chúng tôi đã đề cập ở trên, tên lớp là thông tin bắt buộc duy nhất.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p6.png&#34;
 	width=&#34;1009&#34;
 	height=&#34;274&#34;
 	srcset=&#34;https://truongnh28.github.io/p/class-diagram-uml/p6_hu5d0fdabea17df99e97751377671ceb75_65440_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/class-diagram-uml/p6_hu5d0fdabea17df99e97751377671ceb75_65440_1024x0_resize_box_3.png 1024w&#34;
@@ -365,7 +365,7 @@ Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong 
 	
 &gt;&lt;/p&gt;
 &lt;h2 id=&#34;mối-quan-hệ-giữa-các-lớp&#34;&gt;Mối quan hệ giữa các lớp&lt;/h2&gt;
-&lt;p&gt;UML không chỉ là về những bức ảnh đẹp. Nếu được sử dụng đúng cách, UML sẽ truyền tải chính xác cách mã nên được triển khai từ các sơ đồ. Nếu được diễn giải chính xác, mã được triển khai sẽ phản ánh đúng ý định của nhà thiết kế. Bạn có thể mô tả ý nghĩa của từng mối quan hệ so với ngôn ngữ lập trình mục tiêu của bạn được hiển thị trong Hình bên dưới không?&lt;/p&gt;
+&lt;p&gt;UML không chỉ là về những bức ảnh đẹp. Nếu được sử dụng đúng cách, UML sẽ truyền tải chính xác cách mà code nên được triển khai từ các sơ đồ. Nếu được diễn giải chính xác, code được triển khai sẽ phản ánh đúng ý định của nhà thiết kế. Bạn có thể mô tả ý nghĩa của từng mối quan hệ so với ngôn ngữ lập trình mục tiêu của bạn được hiển thị trong Hình bên dưới không?&lt;/p&gt;
 &lt;p&gt;Nếu bạn vẫn chưa thể nhận ra chúng, không có vấn đề gì phần này nhằm giúp bạn hiểu các mối quan hệ lớp UML. Một lớp có thể tham gia vào một hoặc nhiều mối quan hệ với các lớp khác. Mối quan hệ có thể là một trong các loại sau:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p7.png&#34;
 	width=&#34;484&#34;
@@ -381,11 +381,9 @@ Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong 
 		data-flex-basis=&#34;261px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Kế thừa (hoặc Tổng quát):&lt;/p&gt;
-&lt;p&gt;Tổng quát hóa là một mối quan hệ phân loại giữa một bộ phân loại tổng quát hơn và một bộ phân loại cụ thể hơn. Mỗi thể hiện của trình phân loại cụ thể cũng là một thể hiện gián tiếp của trình phân loại chung. Do đó, trình phân loại cụ thể kế thừa các tính năng của trình phân loại tổng quát hơn.
-&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p8.png&#34;
+&lt;h3 id=&#34;inheritance-or-generalization-kế-thừa-hoặc-tổng-quát&#34;&gt;Inheritance (or Generalization) (Kế thừa (hoặc Tổng quát))&lt;/h3&gt;
+&lt;p&gt;Tổng quát hóa là một mối quan hệ phân loại giữa một bộ phân loại tổng quát hơn và một bộ phân loại cụ thể hơn. Mỗi thể hiện của trình phân loại cụ thể cũng là một thể hiện gián tiếp của trình phân loại chung. Do đó, trình phân loại cụ thể kế thừa các tính năng của trình phân loại tổng quát hơn.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p8.png&#34;
 	width=&#34;307&#34;
 	height=&#34;230&#34;
 	srcset=&#34;https://truongnh28.github.io/p/class-diagram-uml/p8_hu5a7c7d44d8ec9c757e8dcc8afaca41a5_9624_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/class-diagram-uml/p8_hu5a7c7d44d8ec9c757e8dcc8afaca41a5_9624_1024x0_resize_box_3.png 1024w&#34;
@@ -398,10 +396,10 @@ Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong 
 		data-flex-grow=&#34;133&#34;
 		data-flex-basis=&#34;320px&#34;
 	
-&gt;
-Ví dụ:
-Hình dưới đây cho thấy một ví dụ kế thừa với hai kiểu. Mặc dù các đầu nối được vẽ khác nhau nhưng chúng tương đương nhau về mặt ngữ nghĩa.
-&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p9.png&#34;
+&gt;&lt;/p&gt;
+&lt;p&gt;Ví dụ:
+Hình dưới đây cho thấy một ví dụ kế thừa với hai kiểu. Mặc dù các đầu nối được vẽ khác nhau nhưng chúng tương đương nhau về mặt ngữ nghĩa.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p9.png&#34;
 	width=&#34;411&#34;
 	height=&#34;494&#34;
 	srcset=&#34;https://truongnh28.github.io/p/class-diagram-uml/p9_hu8cdc01f72e31ac8b1c04b8bf2f15166e_31700_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/class-diagram-uml/p9_hu8cdc01f72e31ac8b1c04b8bf2f15166e_31700_1024x0_resize_box_3.png 1024w&#34;
@@ -415,17 +413,15 @@ Hình dưới đây cho thấy một ví dụ kế thừa với hai kiểu. Mặ
 		data-flex-basis=&#34;199px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Sự kết hợp&lt;/p&gt;
+&lt;h3 id=&#34;association-sự-kết-hợp&#34;&gt;Association (Sự kết hợp)&lt;/h3&gt;
 &lt;p&gt;Liên kết là mối quan hệ giữa các lớp trong một Sơ đồ lớp UML. Chúng được biểu diễn bằng một đường liền nét giữa các lớp. Các liên kết thường được đặt tên bằng cách sử dụng một động từ hoặc cụm động từ phản ánh lĩnh vực vấn đề trong thế giới thực.&lt;/p&gt;
 &lt;p&gt;a. Hiệp hội đơn giản&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Một liên kết cấu trúc giữa hai lớp đồng đẳng.&lt;/li&gt;
 &lt;li&gt;Có sự liên kết giữa Class1 và Class2&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Hình dưới đây cho thấy một ví dụ về liên kết đơn giản. Có một liên kết kết nối lớp &amp;laquo;control&amp;raquo; lớp Class1 và lớp &amp;laquo;boundary&amp;raquo; lớp Class2. Mối quan hệ được hiển thị như một đường liền mạch nối hai lớp.
-&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p10.png&#34;
+&lt;p&gt;Hình dưới đây cho thấy một ví dụ về liên kết đơn giản. Có một liên kết kết nối lớp &amp;laquo;control&amp;raquo; lớp Class1 và lớp &amp;laquo;boundary&amp;raquo; lớp Class2. Mối quan hệ được hiển thị như một đường liền mạch nối hai lớp.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p10.png&#34;
 	width=&#34;323&#34;
 	height=&#34;138&#34;
 	srcset=&#34;https://truongnh28.github.io/p/class-diagram-uml/p10_hu1c5e70b195d02a6ceb1f0003600602db_7819_480x0_resize_box_3.png 480w, https://truongnh28.github.io/p/class-diagram-uml/p10_hu1c5e70b195d02a6ceb1f0003600602db_7819_1024x0_resize_box_3.png 1024w&#34;
@@ -438,8 +434,8 @@ Hình dưới đây cho thấy một ví dụ kế thừa với hai kiểu. Mặ
 		data-flex-grow=&#34;234&#34;
 		data-flex-basis=&#34;561px&#34;
 	
-&gt;
-b. Cardinality&lt;/p&gt;
+&gt;&lt;/p&gt;
+&lt;p&gt;b. Cardinality&lt;/p&gt;
 &lt;p&gt;Cardinality được thể hiện dưới dạng:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Một - Một&lt;/li&gt;
@@ -460,10 +456,8 @@ b. Cardinality&lt;/p&gt;
 	
 &gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Aggregation Tổng hợp
-Một kiểu liên kết đặc biệt.&lt;/p&gt;
+&lt;h3 id=&#34;aggregation-tổng-hợp&#34;&gt;Aggregation (Tổng hợp)&lt;/h3&gt;
+&lt;p&gt;Một kiểu liên kết đặc biệt.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Nó đại diện cho một mối quan hệ &amp;ldquo;một phần của&amp;rdquo;.&lt;/li&gt;
 &lt;li&gt;Class2 là một phần của Class1.&lt;/li&gt;
@@ -485,9 +479,7 @@ Một kiểu liên kết đặc biệt.&lt;/p&gt;
 		data-flex-basis=&#34;530px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Composition&lt;/p&gt;
+&lt;h3 id=&#34;composition-hợp-thành&#34;&gt;Composition (Hợp thành)&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;Một kiểu tập hợp đặc biệt mà các bộ phận bị phá hủy khi toàn bộ bị phá hủy.&lt;/li&gt;
 &lt;li&gt;Các đối tượng của Class2 sống chết với Class1.&lt;/li&gt;
@@ -508,10 +500,8 @@ Một kiểu liên kết đặc biệt.&lt;/p&gt;
 		data-flex-basis=&#34;640px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Dependency
-Một đối tượng của một lớp có thể sử dụng một đối tượng của lớp khác trong mã của một phương thức. Nếu đối tượng không được lưu trữ trong bất kỳ trường nào, thì đối tượng này được mô hình hóa như một mối quan hệ phụ thuộc.&lt;/p&gt;
+&lt;h3 id=&#34;dependency-sự-phụ-thuộc&#34;&gt;Dependency (Sự phụ thuộc)&lt;/h3&gt;
+&lt;p&gt;Một đối tượng của một lớp có thể sử dụng một đối tượng của lớp khác trong mã của một phương thức. Nếu đối tượng không được lưu trữ trong bất kỳ trường nào, thì đối tượng này được mô hình hóa như một mối quan hệ phụ thuộc.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Một kiểu liên kết đặc biệt.&lt;/li&gt;
 &lt;li&gt;Tồn tại giữa hai lớp nếu những thay đổi đối với định nghĩa của một lớp có thể gây ra những thay đổi cho lớp kia (nhưng không phải ngược lại).&lt;/li&gt;
@@ -547,10 +537,8 @@ Hình dưới đây cho thấy một ví dụ khác về sự phụ thuộc. L�
 		data-flex-basis=&#34;884px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Realization (Hiện thực hóa)
-Hiện thực hóa là một mối quan hệ giữa lớp kế hoạch chi tiết và đối tượng chứa các chi tiết mức độ thực thi tương ứng của nó. Đối tượng này được cho là nhận ra lớp kế hoạch chi tiết. Nói cách khác, bạn có thể hiểu đây là mối quan hệ giữa interface và lớp thực thi.&lt;/p&gt;
+&lt;h3 id=&#34;realization-hiện-thực-hóa&#34;&gt;Realization (Hiện thực hóa)&lt;/h3&gt;
+&lt;p&gt;Hiện thực hóa là một mối quan hệ giữa lớp kế hoạch chi tiết và đối tượng chứa các chi tiết mức độ thực thi tương ứng của nó. Đối tượng này được cho là nhận ra lớp kế hoạch chi tiết. Nói cách khác, bạn có thể hiểu đây là mối quan hệ giữa interface và lớp thực thi.&lt;/p&gt;
 &lt;p&gt;Ví dụ: giao diện Chủ sở hữu có thể chỉ định các phương pháp mua tài sản và định đoạt tài sản. Các lớp Person và Corporation cần triển khai các phương thức này, có thể theo những cách rất khác nhau.
 &lt;img src=&#34;https://truongnh28.github.io/p/class-diagram-uml/p16.png&#34;
 	width=&#34;465&#34;
@@ -597,8 +585,6 @@ Sơ đồ lớp cũng có thể có các ghi chú đính kèm với các lớp h
 		data-flex-basis=&#34;474px&#34;
 	
 &gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
 &lt;h2 id=&#34;tham-khảo&#34;&gt;Tham khảo&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;visual-paradigm&lt;/a&gt;&lt;/p&gt;
