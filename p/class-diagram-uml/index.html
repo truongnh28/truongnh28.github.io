@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='note class diagram'><title>Class diagram UML</title>
+
+<link rel='canonical' href='https://truongnh28.github.io/p/class-diagram-uml/'>
+
+<link rel="stylesheet" href="/scss/style.min.450926226e724574a6b936335ea06111f8aeb253d932c86cb2cc807341cd2889.css"><meta property='og:title' content='Class diagram UML'>
+<meta property='og:description' content='note class diagram'>
+<meta property='og:url' content='https://truongnh28.github.io/p/class-diagram-uml/'>
+<meta property='og:site_name' content='Nguyễn Hữu Trưởng'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='UML' /><meta property='article:tag' content='text' /><meta property='article:published_time' content='2022-05-14T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-05-14T00:00:00&#43;00:00'/><meta property='og:image' content='https://truongnh28.github.io/p/class-diagram-uml/p18.png' />
+<meta name="twitter:title" content="Class diagram UML">
+<meta name="twitter:description" content="note class diagram"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://truongnh28.github.io/p/class-diagram-uml/p18.png' />
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu98d34193ef26d6536e438e405a9d9bf0_34688_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Nguyễn Hữu Trưởng</a></h1>
+            <h2 class="site-description">BE</h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://www.facebook.com/truongjr'
+                        target="_blank"
+                        title="Facebook"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-facebook" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <desc>Download more icon variants from https://tabler-icons.io/i/brand-facebook</desc>
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
+</svg>
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://github.com/truongnh28'
+                        target="_blank"
+                        title="GitHub"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about-me/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About me</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+<main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/class-diagram-uml/">
+                <img src="/p/class-diagram-uml/p18_hu677a00736f2dcfd7487ef442f4d9b9a7_160760_800x0_resize_box_3.png"
+                        srcset="/p/class-diagram-uml/p18_hu677a00736f2dcfd7487ef442f4d9b9a7_160760_800x0_resize_box_3.png 800w, /p/class-diagram-uml/p18_hu677a00736f2dcfd7487ef442f4d9b9a7_160760_1600x0_resize_box_3.png 1600w"
+                        width="800" 
+                        height="405" 
+                        loading="lazy"
+                        alt="Featured image of post Class diagram UML" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/uml/" >
+                UML
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/class-diagram-uml/">Class diagram UML</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            note class diagram
+        </h3>
+        
+    </div>
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">May 14, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="class-diagram">Class diagram</h1>
+<h2 id="giới-thiệu">Giới thiệu</h2>
+<p>Sơ đồ lớp (UML) là một ký hiệu đồ họa sử dụng để trực quan hóa các hệ thống hướng đối tượng. Sơ đồ lớp trong UML là một loại sơ đồ cấu trúc tĩnh mô tả cấu trúc của hệ thống bằng cách hiển thị các thành phần của các thành phần hệ thống:</p>
+<ul>
+<li>Các lớp</li>
+<li>Các thuộc tính của lớp.</li>
+<li>Các phương thức của lớp.</li>
+<li>Các quan hệ giữa các đối tượng.</li>
+</ul>
+<h3 id="class-là-cái-vẹo-gì">Class là cái vẹo gì?</h3>
+<p>Class là một bản thiết kế cho một đối tượng. Các đối tượng và class luôn đi đôi với nhau. Chúng ta không thể nói cái này mà không có cái kia. Và toàn bộ điểm của thiết kế hướng đối tượng không phải nói đến các đối tượng mà nó nói đến class bởi vì chúng ta sử dụng class để tạo ra các đối tượng. Nên một class sẽ mô tả một đối tượng nó như thế nào nhưng bản thân của class không phải là một đối tượng.</p>
+<p>Trong thực tế, các class mô tả các kiểu của đối tượng, trong khi các đối tượng là thể hiện của các class. Mỗi đối tượng được xây dựng từ các bản thiết kế do đó nó chứa các phương thức và thuộc tính giống nhau. Ý nghĩa tiêu chuẩn là một đối tượng là một thể hiện của một lớp và các đối tượng có trạng thái và hành vi.</p>
+<p>Ví dụ:</p>
+<p><img src="/p/class-diagram-uml/p1.png"
+	width="633"
+	height="448"
+	srcset="/p/class-diagram-uml/p1_huda241e34f4e0d83cd8c4038771d04829_31169_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p1_huda241e34f4e0d83cd8c4038771d04829_31169_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="ví dụ"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="141"
+		data-flex-basis="339px"
+	
+></p>
+<h2 id="ký-hiệu-của-uml-class">Ký hiệu của UML Class</h2>
+<p>Một class đại diện cho một khái niệm bao gồm thuộc tính (attributes) và hành vi(behavior). Mỗi thuộc tính có một kiểu và một hành vi mỗi hành vi có một chữ ký. Tên lớp là thông tin bắt buộc duy nhất.</p>
+<p><img src="/p/class-diagram-uml/p2.png"
+	width="676"
+	height="253"
+	srcset="/p/class-diagram-uml/p2_hu361d41e5f32884b2671e5199f88d5a48_38146_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p2_hu361d41e5f32884b2671e5199f88d5a48_38146_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt="&#34;"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="641px"
+	
+></p>
+<ul>
+<li>Tên lớp:
+<ul>
+<li>Tên của lớp xuất hiện trong phân vùng đầu tiên.</li>
+</ul>
+</li>
+<li>Thuộc tính lớp(Attributes):
+<ul>
+<li>Các thuộc tính được hiển thị trong phân vùng thứ hai.</li>
+<li>Loại thuộc tính được hiển thị sau dấu hai chấm.</li>
+<li>Các thuộc tính ánh xạ lên các biến thành viên (thành viên dữ liệu) trong mã.</li>
+</ul>
+</li>
+<li>Hoạt động lớp(Operations) (Phương thức):
+<ul>
+<li>
+<p>Các hoạt động được hiển thị trong phân vùng thứ ba. Chúng là những dịch vụ mà lớp học cung cấp.</p>
+</li>
+<li>
+<p>Kiểu trả về của một phương thức được hiển thị sau dấu hai chấm ở cuối chữ ký phương thức.</p>
+</li>
+<li>
+<p>Kiểu trả về của các tham số phương thức được hiển thị sau dấu hai chấm theo sau tên tham số. Các phép toán ánh xạ vào các phương thức lớp trong code.</p>
+<p><img src="/p/class-diagram-uml/p3.png"
+	width="676"
+	height="253"
+	srcset="/p/class-diagram-uml/p3_huedb92e202f8c6fef211cf287afcc47d8_50462_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p3_huedb92e202f8c6fef211cf287afcc47d8_50462_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="267"
+		data-flex-basis="641px"
+	
+></p>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>
+<p>Hiển thị Lớp học
+Các ký hiệu +, - và # trước tên thuộc tính và hoạt động trong một lớp biểu thị khả năng hiển thị của thuộc tính và hoạt động.
+<img src="/p/class-diagram-uml/p4.png"
+	width="482"
+	height="253"
+	srcset="/p/class-diagram-uml/p4_hu06816d78b83e80e4236a3930fc5d23e0_40625_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p4_hu06816d78b83e80e4236a3930fc5d23e0_40625_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="190"
+		data-flex-basis="457px"
+	
+></p>
+<ul>
+<li>&ldquo;+&rdquo; biểu thị các thuộc tính hoặc hoạt động public</li>
+<li>&ldquo;-&rdquo; biểu thị các thuộc tính hoặc hoạt động private</li>
+<li>&ldquo;#&rdquo; biểu thị các thuộc tính hoặc hoạt động protected</li>
+</ul>
+</li>
+<li>
+<p>Tham số hướng</p>
+<p>Mỗi tham số trong một hoạt động (phương thức) có thể được ký hiệu là in, out hoặc inout, chỉ định hướng của nó đối với người gọi. Hướng này được hiển thị trước tên tham số.</p>
+<p><img src="/p/class-diagram-uml/p5.png"
+	width="632"
+	height="305"
+	srcset="/p/class-diagram-uml/p5_hu3817333d8d211b7c5edfe3f7e161960f_52914_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p5_hu3817333d8d211b7c5edfe3f7e161960f_52914_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="207"
+		data-flex-basis="497px"
+	
+></p>
+</li>
+</ol>
+<h2 id="phối-cảnh-của-sơ-đồ-lớp">Phối cảnh của Sơ đồ lớp</h2>
+<p>Việc lựa chọn quan điểm phụ thuộc vào việc bạn đã đi được bao xa trong quá trình phát triển. Ví dụ, trong quá trình xây dựng mô hình miền, bạn sẽ hiếm khi vượt qua quan điểm khái niệm. Các mô hình phân tích thường sẽ có sự kết hợp giữa quan điểm khái niệm và đặc điểm kỹ thuật. Việc phát triển mô hình thiết kế thường sẽ bắt đầu với sự nhấn mạnh nhiều vào quan điểm đặc tả, và phát triển thành quan điểm thực hiện.</p>
+<p>Một sơ đồ có thể được giải thích từ nhiều khía cạnh khác nhau:</p>
+<ul>
+<li>Khái niệm: đại diện cho các khái niệm trong miền</li>
+<li>Đặc điểm kỹ thuật: tập trung vào các giao diện của Kiểu dữ liệu trừu tượng (ADT) trong phần mềm</li>
+<li>Triển khai: mô tả cách các lớp sẽ triển khai các giao diện của chúng</li>
+</ul>
+<p>Quan điểm ảnh hưởng đến số lượng chi tiết được cung cấp và các loại mối quan hệ đáng trình bày. Như chúng tôi đã đề cập ở trên, tên lớp là thông tin bắt buộc duy nhất.
+<img src="/p/class-diagram-uml/p6.png"
+	width="1009"
+	height="274"
+	srcset="/p/class-diagram-uml/p6_hu5d0fdabea17df99e97751377671ceb75_65440_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p6_hu5d0fdabea17df99e97751377671ceb75_65440_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="368"
+		data-flex-basis="883px"
+	
+></p>
+<h2 id="mối-quan-hệ-giữa-các-lớp">Mối quan hệ giữa các lớp</h2>
+<p>UML không chỉ là về những bức ảnh đẹp. Nếu được sử dụng đúng cách, UML sẽ truyền tải chính xác cách mã nên được triển khai từ các sơ đồ. Nếu được diễn giải chính xác, mã được triển khai sẽ phản ánh đúng ý định của nhà thiết kế. Bạn có thể mô tả ý nghĩa của từng mối quan hệ so với ngôn ngữ lập trình mục tiêu của bạn được hiển thị trong Hình bên dưới không?</p>
+<p>Nếu bạn vẫn chưa thể nhận ra chúng, không có vấn đề gì phần này nhằm giúp bạn hiểu các mối quan hệ lớp UML. Một lớp có thể tham gia vào một hoặc nhiều mối quan hệ với các lớp khác. Mối quan hệ có thể là một trong các loại sau:</p>
+<p><img src="/p/class-diagram-uml/p7.png"
+	width="484"
+	height="445"
+	srcset="/p/class-diagram-uml/p7_hu702add68cc14d06ae8376727328149bc_30117_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p7_hu702add68cc14d06ae8376727328149bc_30117_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="108"
+		data-flex-basis="261px"
+	
+></p>
+<ol>
+<li>
+<p>Kế thừa (hoặc Tổng quát):</p>
+<p>Tổng quát hóa là một mối quan hệ phân loại giữa một bộ phân loại tổng quát hơn và một bộ phân loại cụ thể hơn. Mỗi thể hiện của trình phân loại cụ thể cũng là một thể hiện gián tiếp của trình phân loại chung. Do đó, trình phân loại cụ thể kế thừa các tính năng của trình phân loại tổng quát hơn.
+<img src="/p/class-diagram-uml/p8.png"
+	width="307"
+	height="230"
+	srcset="/p/class-diagram-uml/p8_hu5a7c7d44d8ec9c757e8dcc8afaca41a5_9624_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p8_hu5a7c7d44d8ec9c757e8dcc8afaca41a5_9624_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="133"
+		data-flex-basis="320px"
+	
+>
+Ví dụ:
+Hình dưới đây cho thấy một ví dụ kế thừa với hai kiểu. Mặc dù các đầu nối được vẽ khác nhau nhưng chúng tương đương nhau về mặt ngữ nghĩa.
+<img src="/p/class-diagram-uml/p9.png"
+	width="411"
+	height="494"
+	srcset="/p/class-diagram-uml/p9_hu8cdc01f72e31ac8b1c04b8bf2f15166e_31700_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p9_hu8cdc01f72e31ac8b1c04b8bf2f15166e_31700_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="83"
+		data-flex-basis="199px"
+	
+></p>
+</li>
+<li>
+<p>Sự kết hợp</p>
+<p>Liên kết là mối quan hệ giữa các lớp trong một Sơ đồ lớp UML. Chúng được biểu diễn bằng một đường liền nét giữa các lớp. Các liên kết thường được đặt tên bằng cách sử dụng một động từ hoặc cụm động từ phản ánh lĩnh vực vấn đề trong thế giới thực.</p>
+<p>a. Hiệp hội đơn giản</p>
+<ul>
+<li>Một liên kết cấu trúc giữa hai lớp đồng đẳng.</li>
+<li>Có sự liên kết giữa Class1 và Class2</li>
+</ul>
+<p>Hình dưới đây cho thấy một ví dụ về liên kết đơn giản. Có một liên kết kết nối lớp &laquo;control&raquo; lớp Class1 và lớp &laquo;boundary&raquo; lớp Class2. Mối quan hệ được hiển thị như một đường liền mạch nối hai lớp.
+<img src="/p/class-diagram-uml/p10.png"
+	width="323"
+	height="138"
+	srcset="/p/class-diagram-uml/p10_hu1c5e70b195d02a6ceb1f0003600602db_7819_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p10_hu1c5e70b195d02a6ceb1f0003600602db_7819_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="234"
+		data-flex-basis="561px"
+	
+>
+b. Cardinality</p>
+<p>Cardinality được thể hiện dưới dạng:</p>
+<ul>
+<li>Một - Một</li>
+<li>Một - Nhiều</li>
+<li>Nhiều - Nhiều.
+<img src="/p/class-diagram-uml/p12.png"
+	width="420"
+	height="349"
+	srcset="/p/class-diagram-uml/p12_hu23c779a8d1848d3769cdf31b2c52d2fe_22453_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p12_hu23c779a8d1848d3769cdf31b2c52d2fe_22453_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="120"
+		data-flex-basis="288px"
+	
+></li>
+</ul>
+</li>
+<li>
+<p>Aggregation Tổng hợp
+Một kiểu liên kết đặc biệt.</p>
+<ul>
+<li>Nó đại diện cho một mối quan hệ &ldquo;một phần của&rdquo;.</li>
+<li>Class2 là một phần của Class1.</li>
+<li>Nhiều phiên bản (ký hiệu là *) của Class2 có thể được liên kết với Class1.</li>
+<li>Các đối tượng của Class1 và Class2 có vòng đời riêng biệt.</li>
+</ul>
+<p>Hình dưới đây cho thấy một ví dụ về tập hợp. Mối quan hệ được hiển thị dưới dạng một đường liền nét với một viên kim cương chưa được lấp đầy ở đầu kết hợp, được kết nối với lớp đại diện cho tổng thể.
+<img src="/p/class-diagram-uml/p11.png"
+	width="314"
+	height="142"
+	srcset="/p/class-diagram-uml/p11_hu553f86cb5e09149290dd50897d21527c_8998_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p11_hu553f86cb5e09149290dd50897d21527c_8998_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="221"
+		data-flex-basis="530px"
+	
+></p>
+</li>
+<li>
+<p>Composition</p>
+<ul>
+<li>Một kiểu tập hợp đặc biệt mà các bộ phận bị phá hủy khi toàn bộ bị phá hủy.</li>
+<li>Các đối tượng của Class2 sống chết với Class1.</li>
+<li>Class2 không thể tự đứng.</li>
+</ul>
+<p>Hình dưới đây cho thấy một ví dụ về bố cục. Mối quan hệ được hiển thị dưới dạng một đường liền nét với một viên kim cương được lấp đầy ở đầu kết hợp, được kết nối với lớp đại diện cho toàn bộ hoặc kết hợp.
+<img src="/p/class-diagram-uml/p13.png"
+	width="307"
+	height="115"
+	srcset="/p/class-diagram-uml/p13_hu254d7ad2b93eb52f2e883e58d94c3237_8671_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p13_hu254d7ad2b93eb52f2e883e58d94c3237_8671_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="266"
+		data-flex-basis="640px"
+	
+></p>
+</li>
+<li>
+<p>Dependency
+Một đối tượng của một lớp có thể sử dụng một đối tượng của lớp khác trong mã của một phương thức. Nếu đối tượng không được lưu trữ trong bất kỳ trường nào, thì đối tượng này được mô hình hóa như một mối quan hệ phụ thuộc.</p>
+<ul>
+<li>Một kiểu liên kết đặc biệt.</li>
+<li>Tồn tại giữa hai lớp nếu những thay đổi đối với định nghĩa của một lớp có thể gây ra những thay đổi cho lớp kia (nhưng không phải ngược lại).</li>
+<li>Class1 phụ thuộc vào Class2</li>
+</ul>
+<p>Hình dưới đây cho thấy một ví dụ về sự phụ thuộc. Mối quan hệ được hiển thị dưới dạng đường đứt nét với một mũi tên mở.
+<img src="/p/class-diagram-uml/p14.png"
+	width="307"
+	height="115"
+	srcset="/p/class-diagram-uml/p14_hu16264f52ae8c80b7e78185c69f388ba2_8577_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p14_hu16264f52ae8c80b7e78185c69f388ba2_8577_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="266"
+		data-flex-basis="640px"
+	
+>
+Hình dưới đây cho thấy một ví dụ khác về sự phụ thuộc. Lớp Person có thể có phương thức hasRead với tham số Book trả về true nếu người đó đã đọc sách (có thể bằng cách kiểm tra một số cơ sở dữ liệu).
+<img src="/p/class-diagram-uml/p15.png"
+	width="424"
+	height="115"
+	srcset="/p/class-diagram-uml/p15_hu2eb0df88a5f1cb0516d0ff4d338f37fd_9023_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p15_hu2eb0df88a5f1cb0516d0ff4d338f37fd_9023_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="368"
+		data-flex-basis="884px"
+	
+></p>
+</li>
+<li>
+<p>Realization (Hiện thực hóa)
+Hiện thực hóa là một mối quan hệ giữa lớp kế hoạch chi tiết và đối tượng chứa các chi tiết mức độ thực thi tương ứng của nó. Đối tượng này được cho là nhận ra lớp kế hoạch chi tiết. Nói cách khác, bạn có thể hiểu đây là mối quan hệ giữa interface và lớp thực thi.</p>
+<p>Ví dụ: giao diện Chủ sở hữu có thể chỉ định các phương pháp mua tài sản và định đoạt tài sản. Các lớp Person và Corporation cần triển khai các phương thức này, có thể theo những cách rất khác nhau.
+<img src="/p/class-diagram-uml/p16.png"
+	width="465"
+	height="347"
+	srcset="/p/class-diagram-uml/p16_hu28abcf3aa3d19c15ffc143c74c6d3dbb_29902_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p16_hu28abcf3aa3d19c15ffc143c74c6d3dbb_29902_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="134"
+		data-flex-basis="321px"
+	
+>
+Ví dụ: Sơ đồ lớp Hệ thống đặt hàng.
+<img src="/p/class-diagram-uml/p17.png"
+	width="1109"
+	height="630"
+	srcset="/p/class-diagram-uml/p17_hue28ca8afe65c23b87d61849c432ad7f0_121682_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p17_hue28ca8afe65c23b87d61849c432ad7f0_121682_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="176"
+		data-flex-basis="422px"
+	
+>
+Ví dụ: Sơ đồ lớp: GUI
+Sơ đồ lớp cũng có thể có các ghi chú đính kèm với các lớp hoặc các mối quan hệ.
+<img src="/p/class-diagram-uml/p18.png"
+	width="1097"
+	height="555"
+	srcset="/p/class-diagram-uml/p18_hu677a00736f2dcfd7487ef442f4d9b9a7_160760_480x0_resize_box_3.png 480w, /p/class-diagram-uml/p18_hu677a00736f2dcfd7487ef442f4d9b9a7_160760_1024x0_resize_box_3.png 1024w"
+	loading="lazy"
+	
+		alt=" "
+	
+	
+		class="gallery-image" 
+		data-flex-grow="197"
+		data-flex-basis="474px"
+	
+></p>
+</li>
+</ol>
+<h2 id="tham-khảo">Tham khảo</h2>
+<p><a class="link" href="https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-class-diagram-tutorial/"  target="_blank" rel="noopener"
+    >visual-paradigm</a></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/uml/">UML</a>
+        
+            <a href="/tags/text/">text</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Nguyễn Hữu Trưởng
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.11.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#giới-thiệu">Giới thiệu</a>
+      <ol>
+        <li><a href="#class-là-cái-vẹo-gì">Class là cái vẹo gì?</a></li>
+      </ol>
+    </li>
+    <li><a href="#ký-hiệu-của-uml-class">Ký hiệu của UML Class</a></li>
+    <li><a href="#phối-cảnh-của-sơ-đồ-lớp">Phối cảnh của Sơ đồ lớp</a></li>
+    <li><a href="#mối-quan-hệ-giữa-các-lớp">Mối quan hệ giữa các lớp</a></li>
+    <li><a href="#tham-khảo">Tham khảo</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
